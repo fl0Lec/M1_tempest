@@ -16,12 +16,12 @@ template<class T>
 class Singleton
 {
 public:
-    const std::shared_ptr<T>& getInstance() const
+    static const std::shared_ptr<T>& getInstance()
     {
         return m_instance;
     }
 
-    void setInstance(const std::shared_ptr<T>& instance)
+    static void setInstance(const std::shared_ptr<T>& instance)
     {
         m_instance = instance;
     }
@@ -30,6 +30,9 @@ private:
     static std::shared_ptr<T> m_instance;
 
 };
+
+template<class T>
+std::shared_ptr<T> Singleton<T>::m_instance;
 
 };
 

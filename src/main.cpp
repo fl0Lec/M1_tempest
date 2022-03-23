@@ -15,6 +15,8 @@ int main()
 	std::shared_ptr<BnojourScene> startScene(new BnojourScene());
 	std::shared_ptr<Game> game(new Game(startScene, "Tempest",
 		WINDOW_WIDTH, WINDOW_HEIGHT));
+		
+	Game::setInstance(game);
 
 	game->run();
 
