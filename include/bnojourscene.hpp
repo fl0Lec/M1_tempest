@@ -8,8 +8,11 @@
 
 #include "scene.hpp"
 
-#include "textcomponent.hpp"
 #include <memory>
+
+#include "textcomponent.hpp"
+#include "levelrenderer.hpp"
+#include "vect2.hpp"
 
 class BnojourScene
     : public Engine::Scene
@@ -21,6 +24,7 @@ public:
 
 private:
     std::shared_ptr<Engine::TextComponent> m_text;
+    std::shared_ptr<LevelRenderer> m_levelRenderer;
 
 };
 
