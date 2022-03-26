@@ -1,8 +1,11 @@
 
+#include <iostream>
 #include <memory>
 
 #include "game.hpp"
 #include "bnojourscene.hpp"
+#include "scene.hpp"
+#include "vect2.hpp"
 
 using namespace Engine;
 
@@ -12,11 +15,11 @@ using namespace Engine;
 // TODO Remove all
 int main()
 {
-	std::shared_ptr<BnojourScene> startScene(new BnojourScene());
-	std::shared_ptr<Game> game(new Game(startScene, "Tempest",
-		WINDOW_WIDTH, WINDOW_HEIGHT));
-		
+	std::shared_ptr<Game> game(new Game("Tempest", WINDOW_WIDTH, WINDOW_HEIGHT));	
 	Game::setInstance(game);
+
+	std::shared_ptr<BnojourScene> startScene(new BnojourScene{});
+	game->setCurrentScene(startScene);
 
 	game->run();
 

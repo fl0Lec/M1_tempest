@@ -8,9 +8,8 @@
 
 using namespace Engine;
 
-Game::Game(const std::shared_ptr<Scene>& startScene, const std::string& name,
-        size_t windowWidth, size_t windowHeight)
-    : m_currentScene(startScene), m_width(windowWidth), m_height(windowHeight),
+Game::Game(const std::string& name, size_t windowWidth, size_t windowHeight)
+    : m_currentScene(new Scene{}), m_width(windowWidth), m_height(windowHeight),
         m_timeBase(std::chrono::steady_clock::now())
 {
     if(SDL_Init(SDL_INIT_VIDEO) != 0)

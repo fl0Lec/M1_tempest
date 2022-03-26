@@ -30,13 +30,11 @@ public:
      * @brief Construct a new game engine, which will start by running
      *  startScene, after a call to its method run
      * 
-     * @param startScene First scene to be shown to user at start of the game
      * @param name Name of the game, to be displayed as window title
      * @param windowWidth Window's width in pixels
      * @param windowHeight Window's height in pixels
      */
-    Game(const std::shared_ptr<Scene>& startScene, const std::string& name,
-        size_t windowWidth, size_t windowHeight);
+    Game(const std::string& name, size_t windowWidth, size_t windowHeight);
 
     /**
      * @brief Run the game engine in the current thread
