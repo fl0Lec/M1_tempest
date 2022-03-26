@@ -12,6 +12,8 @@
 namespace Engine
 {
 
+enum EnemyShape {SQUARE_MIDDLE};
+
 /**
  * @brief Abstract class to represent an object in the game
  */
