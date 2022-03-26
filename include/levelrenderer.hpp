@@ -21,7 +21,8 @@
  */
 enum LevelType
 {
-    SQUARE /** Simple square, might get removed because isn't a real level */
+    PLUS,
+    SQUARE,
 };
 
 /**
@@ -69,6 +70,7 @@ private:
     const Engine::Vect2f m_center;
     
     size_t m_playerLane;
+    size_t m_laneCount;
     
     /** Lines to be drawned as background */
     std::vector<std::pair<Engine::Vect2f, Engine::Vect2f>> m_lines;

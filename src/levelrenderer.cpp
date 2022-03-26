@@ -21,16 +21,58 @@ std::vector<std::pair<Vect2f, Vect2f>>
 
     switch(type)
     {
+        case PLUS:
+            points = std::vector<std::pair<Vect2f, Vect2f>>{
+                std::make_pair(Vect2f{ 0,    1},   Vect2f{ 0,  2}),
+                std::make_pair(Vect2f{-0.5,  1},   Vect2f{-1,  2}),
+                std::make_pair(Vect2f{-0.5,  0.5}, Vect2f{-1,  1}),
+                std::make_pair(Vect2f{-1,    0.5}, Vect2f{-2,  1}),
+                std::make_pair(Vect2f{-1,    0},   Vect2f{-2,  0}),
+                std::make_pair(Vect2f{-1,   -0.5}, Vect2f{-2, -1}),
+                std::make_pair(Vect2f{-0.5, -0.5}, Vect2f{-1, -1}),
+                std::make_pair(Vect2f{-0.5, -1},   Vect2f{-1, -2}),
+                std::make_pair(Vect2f{ 0,   -1},   Vect2f{ 0, -2}),
+                std::make_pair(Vect2f{ 0.5, -1},   Vect2f{ 1, -2}),
+                std::make_pair(Vect2f{ 0.5, -0.5}, Vect2f{ 1, -1}),
+                std::make_pair(Vect2f{ 1,   -0.5}, Vect2f{ 2, -1}),
+                std::make_pair(Vect2f{ 1,    0},   Vect2f{ 2,  0}),
+                std::make_pair(Vect2f{ 1,    0.5}, Vect2f{ 2,  1}),
+                std::make_pair(Vect2f{ 0.5,  0.5}, Vect2f{ 1,  1}),
+                std::make_pair(Vect2f{ 0.5,  1},   Vect2f{ 1,  2}),
+                std::make_pair(Vect2f{ 0,    1},   Vect2f{ 0,  2})
+            };
+            for(auto& line : points)
+            {
+                line.first += Vect2f{0, 1.5};
+                line.first *= 3.0f;
+            }
+            break;
+        
         case SQUARE:
-            points.emplace_back(std::make_pair(Vect2f{-1, 1},  Vect2f{-2, 2}));
-            points.emplace_back(std::make_pair(Vect2f{-1, 0},  Vect2f{-2, 0}));
-            points.emplace_back(std::make_pair(Vect2f{-1, -1}, Vect2f{-2, -2}));
-            points.emplace_back(std::make_pair(Vect2f{0, -1},  Vect2f{0, -2}));
-            points.emplace_back(std::make_pair(Vect2f{1, -1},  Vect2f{2, -2}));
-            points.emplace_back(std::make_pair(Vect2f{1, 0},   Vect2f{2, 0}));
-            points.emplace_back(std::make_pair(Vect2f{1, 1},   Vect2f{2, 2}));
-            points.emplace_back(std::make_pair(Vect2f{0, 1},   Vect2f{0, 2}));
-            points.emplace_back(std::make_pair(Vect2f{-1, 1},  Vect2f{-2, 2}));
+            points = std::vector<std::pair<Vect2f, Vect2f>>{
+                std::make_pair(Vect2f{ 0,    1},    Vect2f{ 0,  2}),
+                std::make_pair(Vect2f{-0.25, 1},    Vect2f{-1,  2}),
+                std::make_pair(Vect2f{-0.5,  1},    Vect2f{-2,  2}),
+                std::make_pair(Vect2f{-0.5,  0.75}, Vect2f{-2,  1}),
+                std::make_pair(Vect2f{-0.5,  0.5},  Vect2f{-2,  0}),
+                std::make_pair(Vect2f{-0.5,  0.25}, Vect2f{-2,  -1}),
+                std::make_pair(Vect2f{-0.5,   0},    Vect2f{-2,  -2}),
+                std::make_pair(Vect2f{-0.25,  0},    Vect2f{-1, -2}),
+                std::make_pair(Vect2f{ 0,     0},    Vect2f{ 0, -2}),
+                std::make_pair(Vect2f{ 0.25,  0},    Vect2f{ 1, -2}),
+                std::make_pair(Vect2f{ 0.5,   0},    Vect2f{ 2, -2}),
+                std::make_pair(Vect2f{ 0.5,  0.25}, Vect2f{ 2, -1}),
+                std::make_pair(Vect2f{ 0.5,  0.5},  Vect2f{ 2, 0}),
+                std::make_pair(Vect2f{ 0.5,  0.75}, Vect2f{ 2, 1}),
+                std::make_pair(Vect2f{ 0.5,  1},    Vect2f{ 2, 2}),
+                std::make_pair(Vect2f{ 0.25,  1},   Vect2f{ 1,  2}),
+                std::make_pair(Vect2f{ 0,    1},    Vect2f{ 0,  2})
+            };
+            for(auto& line : points)
+            {
+                line.first += Vect2f{0, 1.5};
+                line.first *= 4.0f;
+            }
             break;
     }
 
@@ -52,6 +94,7 @@ LevelRenderer::LevelRenderer(const Vect2f& center, LevelType type)
     : m_type(type), m_center(center)
 {
     const auto points = levelBasePoints(type);
+    m_laneCount = points.size() - 1;
 
     std::pair<Vect2f, Vect2f> last = normalizeLine(points.front());
     m_lines.emplace_back(last);
@@ -66,6 +109,11 @@ LevelRenderer::LevelRenderer(const Vect2f& center, LevelType type)
 
         last = line;
     }
+}
+
+size_t LevelRenderer::laneCount() const
+{
+    return m_laneCount;
 }
 
 void LevelRenderer::render(const Output &out) const

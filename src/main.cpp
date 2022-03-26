@@ -4,6 +4,7 @@
 
 #include "game.hpp"
 #include "bnojourscene.hpp"
+#include "leveldisplayscene.hpp"
 #include "scene.hpp"
 #include "vect2.hpp"
 
@@ -18,8 +19,11 @@ int main()
 	std::shared_ptr<Game> game(new Game("Tempest", WINDOW_WIDTH, WINDOW_HEIGHT));	
 	Game::setInstance(game);
 
-	std::shared_ptr<BnojourScene> startScene(new BnojourScene{});
-	game->setCurrentScene(startScene);
+	std::shared_ptr<LevelDisplayScene> displayScene(new LevelDisplayScene{});
+	game->setCurrentScene(displayScene);
+
+	// std::shared_ptr<BnojourScene> startScene(new BnojourScene{});
+	// game->setCurrentScene(startScene);
 
 	game->run();
 
