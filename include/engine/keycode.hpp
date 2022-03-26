@@ -6,6 +6,7 @@
 #ifndef __KEYCODE_H__
 #define __KEYCODE_H__
 
+#include "SDL_keycode.h"
 #include "SDL_scancode.h"
 #include <SDL.h>
 
@@ -59,6 +60,11 @@ enum Keycode : short
     KEY_RIGHT_CTRL = SDL_SCANCODE_RCTRL,
     KEY_LEFT_ALT   = SDL_SCANCODE_LALT,
     KEY_RIGHT_ALT  = SDL_SCANCODE_RALT,
+
+    KEY_UP    = SDL_SCANCODE_UP,
+    KEY_DOWN  = SDL_SCANCODE_DOWN,
+    KEY_LEFT  = SDL_SCANCODE_LEFT,
+    KEY_RIGHT = SDL_SCANCODE_RIGHT,
 
     KEY_MAX = SDL_NUM_SCANCODES    
 };

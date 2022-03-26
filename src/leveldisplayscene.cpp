@@ -16,13 +16,13 @@ LevelDisplayScene::LevelDisplayScene()
 
 void LevelDisplayScene::update(const Engine::Input &in)
 {
-    if(in.isKeyReleased(Engine::KEY_Q))
+    if(in.isKeyReleased(Engine::KEY_Q) || in.isKeyReleased(Engine::KEY_LEFT))
     {
         if(m_currentLevel == 0)
             m_currentLevel = m_levels.size();
         m_currentLevel -= 1;
     }
-    else if(in.isKeyPressed(Engine::KEY_D))
+    else if(in.isKeyReleased(Engine::KEY_D) || in.isKeyReleased(Engine::KEY_RIGHT))
     {
         m_currentLevel += 1;
     }
