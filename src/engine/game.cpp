@@ -1,5 +1,6 @@
 
 #include "game.hpp"
+#include "vect2.hpp"
 
 #include <chrono>
 #include <cstdlib>
@@ -132,4 +133,9 @@ size_t Game::width() const
 size_t Game::height() const
 {
     return m_height;
+}
+
+Vect2f Game::center() const
+{
+    return Vect2f{m_width / 2.0f, m_height / 2.0f};
 }

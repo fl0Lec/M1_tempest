@@ -15,6 +15,7 @@
 #include "input.hpp"
 #include "output.hpp"
 #include "scene.hpp"
+#include "vect2.hpp"
 
 namespace Engine
 {
@@ -78,6 +79,11 @@ public:
      * @brief Get the height of the game window
      */
     size_t height() const;
+
+    /**
+     * @brief Get the center of the game window
+     */
+    Vect2f center() const;
 
 protected:
     void update(); // Update Input and update scene
