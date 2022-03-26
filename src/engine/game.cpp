@@ -9,7 +9,8 @@ using namespace Engine;
 
 Game::Game(const std::shared_ptr<Scene>& startScene, const std::string& name,
         size_t windowWidth, size_t windowHeight)
-    : m_currentScene(startScene), m_timeBase(std::chrono::steady_clock::now())
+    : m_currentScene(startScene), m_width(windowWidth), m_height(windowHeight),
+        m_timeBase(std::chrono::steady_clock::now())
 {
     if(SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -22,7 +23,7 @@ Game::Game(const std::shared_ptr<Scene>& startScene, const std::string& name,
         SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight,
         SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(!renderer)
     {
@@ -121,4 +122,14 @@ void Game::render()
     m_currentScene->render(m_output);
 
     m_output.render();
+}
+
+size_t Game::width() const
+{
+    return m_width;
+}
+
+size_t Game::height() const
+{
+    return m_height;
 }

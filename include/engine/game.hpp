@@ -69,6 +69,16 @@ public:
      */
     unsigned int lastSecondFPSCount() const;
 
+    /**
+     * @brief Get the width of the game window
+     */
+    size_t width() const;
+
+    /**
+     * @brief Get the height of the game window
+     */
+    size_t height() const;
+
 protected:
     void update(); // Update Input and update scene
     void render(); // Clean display and render scene
@@ -80,6 +90,9 @@ private:
     std::shared_ptr<Scene> m_currentScene;
     Output m_output;
     Input m_input;
+
+    const size_t m_width;
+    const size_t m_height;
 
     const std::chrono::time_point<std::chrono::steady_clock> m_timeBase;
 
