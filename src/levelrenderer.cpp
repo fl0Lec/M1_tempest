@@ -74,6 +74,33 @@ std::vector<std::pair<Vect2f, Vect2f>>
                 line.first *= 4.0f;
             }
             break;
+
+        case TRIANGLE:
+            std::vector<Vect2f> base{
+                Vect2f{-1.75, -2},
+                Vect2f{-1.75, -1},
+                Vect2f{-1.25, -1},
+                Vect2f{-1.25,  0},
+                Vect2f{-0.75,  0},
+                Vect2f{-0.75,  1},
+                Vect2f{-0.25,  1},
+                Vect2f{-0.25,  2},
+                Vect2f{ 0.25,  2},
+                Vect2f{ 0.25,  1},
+                Vect2f{ 0.75,  1},
+                Vect2f{ 0.75,  0},
+                Vect2f{ 1.25,  0},
+                Vect2f{ 1.25,  -1},
+                Vect2f{ 1.75,  -1}, 
+                Vect2f{ 1.75,  -2}
+            };
+            for(const auto& pt : base)
+                points.emplace_back(std::make_pair(
+                    pt - Vect2f{0, 10.0f},
+                    Vect2f{pt.x * 1.8f, pt.y}
+                ));
+
+            break;
     }
 
     return points;

@@ -23,6 +23,7 @@ enum LevelType
 {
     PLUS,
     SQUARE,
+    TRIANGLE,
 };
 
 /**

@@ -12,6 +12,7 @@ LevelDisplayScene::LevelDisplayScene()
 
     m_levels.emplace_back(LevelRenderer{center, LevelType::PLUS});
     m_levels.emplace_back(LevelRenderer{center, LevelType::SQUARE});
+    m_levels.emplace_back(LevelRenderer{center, LevelType::TRIANGLE});
 }
 
 void LevelDisplayScene::update(const Engine::Input &in)
