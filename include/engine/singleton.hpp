@@ -16,7 +16,7 @@ template<class T>
 class Singleton
 {
 public:
-    static const std::shared_ptr<T>& getInstance()
+    static const std::shared_ptr<T>& instance()
     {
         return m_instance;
     }
