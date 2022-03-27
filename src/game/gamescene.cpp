@@ -21,3 +21,8 @@ void GameScene::createEnemy(EnemyShape type)
     m_enemy.emplace_back(enemy);
     m_objects.emplace_back(enemy);
 }
+
+size_t GameScene::getNbLine() const
+{
+    return m_level->laneCount();
+}

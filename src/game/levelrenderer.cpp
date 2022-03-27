@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <vector>
+#include <cassert>
 
 #include "color.hpp"
 #include "game.hpp"
@@ -148,6 +149,22 @@ size_t LevelRenderer::laneCount() const
     return m_laneCount;
 }
 
+void LevelRenderer::drawEnemy(size_t line, double position, EnemyShape type)
+{
+    assert(line<m_lines.size());
+    Line2f AB =std::make_pair<Vect2f, Vect2f>
+            (laneLines(line).first.second, laneLines(line).second.second);
+    Vect2f U = vectorized(AB);
+    //reste a appliquer putinU sur chaque point de enemy pour le mettre sur AB
+
+
+    //maintenant deplacer par hometructruc 
+    //attention origine pas zero 
+
+
+
+}
+
 void LevelRenderer::render(const Output &out) const
 {
     out.setColor(DEFAULT_COLOR);
@@ -160,3 +177,15 @@ void LevelRenderer::render(const Output &out) const
 
 void LevelRenderer::update([[maybe_unused]] const Input &in)
 { }
+
+Vect2f vectorized(Line2f l)
+{
+    return Vect2f{l.second.x-l.first.x, l.second.y-l.first.y};
+}
+
+Vect2f putinU(Vect2f p, const Vect2f& U)
+{
+    p.x = U.x*p.x - U.y*p.y;
+    p.y = U.y*p.x + U.x*p.y;
+    return p;
+}

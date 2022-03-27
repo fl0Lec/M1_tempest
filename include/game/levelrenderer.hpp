@@ -55,6 +55,11 @@ public:
      */
     void setPlayerLane(size_t lane);
 
+    /**
+     * @brief Draw type enemy at a given position in line
+     */
+    void drawEnemy(size_t line, double position, EnemyShape type);
+
     virtual void render(const Engine::Output &out) const override;
     virtual void update(const Engine::Input &in) override;
 
@@ -99,5 +104,10 @@ private:
     static constexpr float LANE_SIZE = 0.8f;
 
 };
+
+Engine::Vect2f vectorized(Line2f l);
+
+Engine::Vect2f putinU(Engine::Vect2f p, const Engine::Vect2f& U);
+
 
 #endif

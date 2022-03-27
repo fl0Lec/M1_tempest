@@ -9,7 +9,6 @@
 #include "gameobject.hpp"
 #include "vect2.hpp"
 
-enum EnemyShape {SQUARE_MIDDLE};
 
 class Enemy
     : public Entity

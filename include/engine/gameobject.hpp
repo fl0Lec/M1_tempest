@@ -9,6 +9,8 @@
 #include "input.hpp"
 #include "output.hpp"
 
+enum EnemyShape {SQUARE_MIDDLE};
+
 namespace Engine
 {
 

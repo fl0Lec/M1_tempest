@@ -21,6 +21,8 @@ class GameScene
 public:
     GameScene(LevelType level = TRIANGLE);
 
+    size_t getNbLine() const;
+
     void createEnemy(EnemyShape type);
 
 private:
