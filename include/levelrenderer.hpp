@@ -16,6 +16,11 @@
 #include "output.hpp"
 #include "vect2.hpp"
 
+// Use a pair of vector to describe a line,
+//  first vector is the point near the center
+//  second vector is the point near the player
+using Line2f = std::pair<Engine::Vect2f, Engine::Vect2f>;
+
 /**
  * @brief Describes the different possible levels
  */
@@ -57,14 +62,19 @@ protected:
     /**
      * @brief Computes the structure of a level based on its type
      */
-    static std::vector<std::pair<Engine::Vect2f, Engine::Vect2f>>
-        levelBasePoints(LevelType type);
+    static std::vector<Line2f> levelBasePoints(LevelType type);
+
+    /**
+     * @brief Get the two lines associated to a lane number
+     * 
+     * @param lane Number of the lane
+     */
+    std::pair<Line2f, Line2f> laneLines(size_t lane);
 
     /**
      * @brief Normalize a line to fit in the window
      */
-    std::pair<Engine::Vect2f, Engine::Vect2f> normalizeLine(
-        std::pair<Engine::Vect2f, Engine::Vect2f> line);
+    Line2f normalizeLine(Line2f line);
 
 private:
     const LevelType m_type;
@@ -74,7 +84,7 @@ private:
     size_t m_laneCount;
     
     /** Lines to be drawned as background */
-    std::vector<std::pair<Engine::Vect2f, Engine::Vect2f>> m_lines;
+    std::vector<Line2f> m_lines;
 
     static const Engine::Color DEFAULT_COLOR;
     static const Engine::Color PLAYER_COLOR;

@@ -12,17 +12,16 @@
 using namespace Engine;
 
 const Color LevelRenderer::DEFAULT_COLOR = Color::BLUE;
-const Color LevelRenderer::PLAYER_COLOR = Color::YELLOW;
+const Color LevelRenderer::PLAYER_COLOR  = Color::YELLOW;
 
-std::vector<std::pair<Vect2f, Vect2f>>
-    LevelRenderer::levelBasePoints(LevelType type)
+std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
 {
-    std::vector<std::pair<Vect2f, Vect2f>> points;
+    std::vector<Line2f> lines;
 
     switch(type)
     {
         case PLUS:
-            points = std::vector<std::pair<Vect2f, Vect2f>>{
+            lines = std::vector<std::pair<Vect2f, Vect2f>>{
                 std::make_pair(Vect2f{ 0,    1},   Vect2f{ 0,  2}),
                 std::make_pair(Vect2f{-0.5,  1},   Vect2f{-1,  2}),
                 std::make_pair(Vect2f{-0.5,  0.5}, Vect2f{-1,  1}),
@@ -41,7 +40,7 @@ std::vector<std::pair<Vect2f, Vect2f>>
                 std::make_pair(Vect2f{ 0.5,  1},   Vect2f{ 1,  2}),
                 std::make_pair(Vect2f{ 0,    1},   Vect2f{ 0,  2})
             };
-            for(auto& line : points)
+            for(auto& line : lines)
             {
                 line.first += Vect2f{0, 1.5};
                 line.first *= 3.0f;
@@ -49,7 +48,7 @@ std::vector<std::pair<Vect2f, Vect2f>>
             break;
         
         case SQUARE:
-            points = std::vector<std::pair<Vect2f, Vect2f>>{
+            lines = std::vector<std::pair<Vect2f, Vect2f>>{
                 std::make_pair(Vect2f{ 0,    1},    Vect2f{ 0,  2}),
                 std::make_pair(Vect2f{-0.25, 1},    Vect2f{-1,  2}),
                 std::make_pair(Vect2f{-0.5,  1},    Vect2f{-2,  2}),
@@ -68,7 +67,7 @@ std::vector<std::pair<Vect2f, Vect2f>>
                 std::make_pair(Vect2f{ 0.25,  1},   Vect2f{ 1,  2}),
                 std::make_pair(Vect2f{ 0,    1},    Vect2f{ 0,  2})
             };
-            for(auto& line : points)
+            for(auto& line : lines)
             {
                 line.first += Vect2f{0, 1.5};
                 line.first *= 4.0f;
@@ -95,7 +94,7 @@ std::vector<std::pair<Vect2f, Vect2f>>
                 Vect2f{ 1.75,  -2}
             };
             for(const auto& pt : base)
-                points.emplace_back(std::make_pair(
+                lines.emplace_back(std::make_pair(
                     pt - Vect2f{0, 10.0f},
                     Vect2f{pt.x * 1.8f, pt.y}
                 ));
@@ -103,11 +102,10 @@ std::vector<std::pair<Vect2f, Vect2f>>
             break;
     }
 
-    return points;
+    return lines;
 }
 
-std::pair<Vect2f, Vect2f> LevelRenderer::normalizeLine(
-    std::pair<Vect2f, Vect2f> line)
+Line2f LevelRenderer::normalizeLine(Line2f line)
 {
     const size_t height = Game::instance()->height() / 2;
 
@@ -123,12 +121,12 @@ LevelRenderer::LevelRenderer(const Vect2f& center, LevelType type)
     const auto points = levelBasePoints(type);
     m_laneCount = points.size() - 1;
 
-    std::pair<Vect2f, Vect2f> last = normalizeLine(points.front());
+    Line2f last = normalizeLine(points.front());
     m_lines.emplace_back(last);
 
     for(auto it = ++points.cbegin(); it != points.cend(); ++it)
     {
-        const std::pair<Vect2f, Vect2f> line = normalizeLine(*it);
+        const Line2f line = normalizeLine(*it);
 
         m_lines.emplace_back(line);
         m_lines.emplace_back(std::make_pair(line.first, last.first));
@@ -136,6 +134,13 @@ LevelRenderer::LevelRenderer(const Vect2f& center, LevelType type)
 
         last = line;
     }
+}
+
+std::pair<Line2f, Line2f> LevelRenderer::laneLines(size_t lane)
+{
+    lane %= m_lines.size() - 1;
+
+    return std::make_pair(m_lines[lane], m_lines[lane+1]);
 }
 
 size_t LevelRenderer::laneCount() const
