@@ -1,13 +1,14 @@
 #ifndef __ENEMIE_H__
 #define __ENEMIE_H__
 
+#include "entity.hpp"
 #include "gameobject.hpp"
 #include "vect2.hpp"
 
 #include <vector>
 
 class Enemy
-    : public Engine::GameObject 
+    : public Entity
 {
 public :
     /**
@@ -18,10 +19,6 @@ public :
     //Enemy();
     Enemy(uint line, double speed, Engine::EnemyShape type);
 
-    uint getLine() const;
-    void setLine(uint newLine);
-
-    double getPosition() const;
     Engine::EnemyShape getType() const;
 
     /**
@@ -32,14 +29,11 @@ public :
     /**
      * @brief update postion and line depending on speed
      */
-    void update (const Engine::Input &in) override;
+    //void update (const Engine::Input &in) override;
     
-    void render(const Engine::Output &out) const override;
 
 
 private:
-    uint m_line;
-    double m_position;
     double m_speed;
     Engine::EnemyShape m_type;
 
