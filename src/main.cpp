@@ -3,10 +3,12 @@
 #include <memory>
 
 #include "game.hpp"
-#include "bnojourscene.hpp"
-#include "leveldisplayscene.hpp"
 #include "scene.hpp"
 #include "vect2.hpp"
+
+#include "gamescene.hpp"
+#include "bnojourscene.hpp"
+#include "leveldisplayscene.hpp"
 
 using namespace Engine;
 
@@ -19,11 +21,12 @@ int main()
 	std::shared_ptr<Game> game(new Game("Tempest", WINDOW_WIDTH, WINDOW_HEIGHT));	
 	Game::setInstance(game);
 
-	std::shared_ptr<LevelDisplayScene> displayScene(new LevelDisplayScene{});
-	game->setCurrentScene(displayScene);
+	// Debug scene
+	// std::shared_ptr<LevelDisplayScene> displayScene{new LevelDisplayScene{}};
+	// game->setCurrentScene(displayScene);
 
-	// std::shared_ptr<BnojourScene> startScene(new BnojourScene{});
-	// game->setCurrentScene(startScene);
+	std::shared_ptr<GameScene> gameScene{new GameScene{}};
+	game->setCurrentScene(gameScene);
 
 	game->run();
 

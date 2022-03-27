@@ -21,20 +21,12 @@ class Scene
     : public GameObject
 {
 public:
-    Scene();
-
     virtual void update(const Input &in) override;
     virtual void render(const Output &out) const override;
-
-    void createEnemy(Engine::EnemyShape type);
 
 protected:
     /** List of objects that will be updated and rendered */
     std::vector<std::shared_ptr<GameObject>> m_objects;
-    /** List of enemie object */
-    std::vector<std::shared_ptr<Entity>> m_enemy;
-    
-    Player m_player;
 
 };
 

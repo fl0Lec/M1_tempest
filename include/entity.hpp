@@ -1,11 +1,14 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
+#include "gameobject.hpp"
+
 typedef unsigned int uint;
 
-class Entity 
+class Entity
+    : public Engine::GameObject
 {
-    public :
+public:
     /**
      * @param line  number of line where start
      * @param position original position (default 0=center)
@@ -23,8 +26,7 @@ class Entity
      */
     double getPosition() const;
     
-    private :
-
+private:
     uint m_line;
     double m_position;
 };
