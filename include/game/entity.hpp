@@ -25,6 +25,10 @@ public:
      * @brief return the relative postion in the line
      */
     double getPosition() const;
+
+    // TODO Implement in class or sub class (else code doesn't compile)
+    virtual void update(const Engine::Input &in) override;
+    virtual void render(const Engine::Output &out) const override;
     
 private:
     uint m_line;

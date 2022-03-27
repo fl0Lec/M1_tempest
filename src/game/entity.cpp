@@ -20,3 +20,13 @@ double Entity::getPosition() const
 {
     return m_position;
 }
+
+void Entity::update(const Engine::Input &in)
+{
+    // TODO Implement here or in sub-classes
+}
+
+void Entity::render(const Engine::Output &out) const
+{
+    // TODO Implement here or in sub-classes
+}
