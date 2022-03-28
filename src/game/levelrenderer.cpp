@@ -159,10 +159,10 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
     {
     case SQUARE_MIDDLE:
         lines = {
-        std::make_pair(Engine::Vect2f{0.45, 0}, Engine::Vect2f{0.55,   0}),
-        std::make_pair(Engine::Vect2f{0.55,  0}, Engine::Vect2f{0.55,    0.05}),
-        std::make_pair(Engine::Vect2f{0.55, 0.05},   Engine::Vect2f{0.45, 0.05}),
-        std::make_pair(Engine::Vect2f{0.45, 0.05},  Engine::Vect2f{0.45 , 0})
+        std::make_pair(Engine::Vect2f{0.40, 0}, Engine::Vect2f{0.6,   0}),
+        std::make_pair(Engine::Vect2f{0.6,  0}, Engine::Vect2f{0.6,    0.1}),
+        std::make_pair(Engine::Vect2f{0.6, 0.1},   Engine::Vect2f{0.4, 0.1}),
+        std::make_pair(Engine::Vect2f{0.4, 0.1},  Engine::Vect2f{0.4 , 0})
         };
         break;
     
@@ -194,8 +194,9 @@ void LevelRenderer::drawEnemy(std::shared_ptr<Enemy> e)
     */
     for (Line2f& line : *lines)
     {
-        float h;
-        h=e->getPosition()/100;
+        float z, h;
+        z = e->getPosition()/100;
+        h = z*z;
         homothetie(line.first, h, middle);
         homothetie(line.second, h, middle);
     }

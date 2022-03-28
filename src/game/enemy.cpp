@@ -2,7 +2,7 @@
 #include "enemy.hpp"
 
 Enemy::Enemy(uint line, double speed, EnemyShape type)
-    :Entity(line), m_speed(speed), m_type(type) {}
+    :Entity(line, 0), m_speed(speed), m_type(type) {}
 
 
 EnemyShape Enemy::getType() const 

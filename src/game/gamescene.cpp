@@ -33,6 +33,11 @@ size_t GameScene::getNbLine() const
     m_level->clearEnemy();
     for (auto& e : m_enemy)
     {
-        m_level->drawEnemy(e);
+        if (e->getPosition()<100)
+            m_level->drawEnemy(e);
+        else 
+        {
+            // TO DO check if same as user and remove
+        }
     }
  }
