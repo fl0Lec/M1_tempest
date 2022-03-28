@@ -90,7 +90,7 @@ protected:
     /**
     * @brief move point (modify) in between himself and the center by a factor of h
     */
-    void homothetie(Engine::Vect2f& A, double h);
+    void homothetie(Engine::Vect2f& A, double h, const Engine::Vect2f& center);
 
 private:
     const LevelType m_type;

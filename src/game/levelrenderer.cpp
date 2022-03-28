@@ -175,19 +175,19 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
 void LevelRenderer::drawEnemy(std::shared_ptr<Enemy> e)
 {
     assert(e->getLine()<m_lines.size());
-    Line2f AB =std::make_pair<Vect2f, Vect2f>
-            (laneLines(e->getLine()).first.second, laneLines(e->getLine()).second.second);
-    Vect2f U = vectorized(AB);
+    std::pair<Line2f, Line2f> llines = laneLines(e->getLine());
+    Line2f  top = std::make_pair<Vect2f, Vect2f>(laneLines(e->getLine()).first.second, laneLines(e->getLine()).second.second);
+    Vect2f U = vectorized(top), middle = (llines.first.first+llines.second.first)/(float)2; 
 
     /** @brief put each point and normalized it to U */
     std::shared_ptr<std::vector<Line2f>> lines;
     lines = std::make_shared<std::vector<Line2f>>(EnemyBasePoint(e->getType()));
     for (Line2f& line : *lines)
     {
-        putinU(line.first, U, AB.first);
-        putinU(line.second, U, AB.first);
+        putinU(line.first, U, top.first);
+        putinU(line.second, U, top.first);
     }
-    
+
     /** @brief now move by homothetie 
      * for now just move it linearly
      * later fast on out than in
@@ -196,8 +196,8 @@ void LevelRenderer::drawEnemy(std::shared_ptr<Enemy> e)
     {
         float h;
         h=e->getPosition()/100;
-        homothetie(line.first, h);
-        homothetie(line.second, h);
+        homothetie(line.first, h, middle);
+        homothetie(line.second, h, middle);
     }
     m_enemy_lines.emplace_back(lines);
 }
@@ -247,9 +247,9 @@ void putinU(Vect2f& p, const Vect2f& U, const Vect2f& A)
     newp.y = U.y*p.x + U.x*p.y + A.y;
     p = newp;
 }
-void LevelRenderer::homothetie(Vect2f& P, double h)
+void LevelRenderer::homothetie(Vect2f& P, double h, const Vect2f& center)
 {
-    Vect2f CP = P-m_center;
-    P = m_center+CP*(float)h;
+    Vect2f CP = P-center;
+    P = center+CP*(float)h;
 
 }
