@@ -15,6 +15,7 @@
 #include "color.hpp"
 #include "output.hpp"
 #include "vect2.hpp"
+#include "enemy.hpp"
 
 // Use a pair of vector to describe a line,
 //  first vector is the point near the center
@@ -58,7 +59,12 @@ public:
     /**
      * @brief Draw type enemy at a given position in line
      */
-    void drawEnemy(size_t line, double position, EnemyShape type);
+    void drawEnemy(std::shared_ptr<Enemy> e);
+
+    /**
+     * @brief Clear all enemy line
+     */
+    void clearEnemy();
 
     virtual void render(const Engine::Output &out) const override;
     virtual void update(const Engine::Input &in) override;
@@ -81,6 +87,11 @@ protected:
      */
     Line2f normalizeLine(Line2f line);
 
+    /**
+    * @brief move point (modify) in between himself and the center by a factor of h
+    */
+    void homothetie(Engine::Vect2f& A, double h);
+
 private:
     const LevelType m_type;
     const Engine::Vect2f m_center;
@@ -90,6 +101,8 @@ private:
     
     /** Lines to be drawned as background */
     std::vector<Line2f> m_lines;
+
+    std::vector<std::shared_ptr<std::vector<Line2f>>> m_enemy_lines;
 
     static const Engine::Color DEFAULT_COLOR;
     static const Engine::Color PLAYER_COLOR;
@@ -107,7 +120,7 @@ private:
 
 Engine::Vect2f vectorized(Line2f l);
 
-Engine::Vect2f putinU(Engine::Vect2f p, const Engine::Vect2f& U);
+void putinU(Engine::Vect2f &p, const Engine::Vect2f& U, const Engine::Vect2f& A);
 
 
 #endif

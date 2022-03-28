@@ -30,7 +30,7 @@ public:
     virtual void update(const Engine::Input &in) override;
     virtual void render(const Engine::Output &out) const override;
     
-private:
+protected:
     uint m_line;
     double m_position;
 };

@@ -32,7 +32,7 @@ public :
     /**
      * @brief update postion and line depending on speed
      */
-    //void update (const Engine::Input &in) override;
+    void update (const Engine::Input &in) override;
     
 
 

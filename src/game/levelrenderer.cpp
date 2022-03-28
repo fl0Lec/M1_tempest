@@ -10,6 +10,8 @@
 #include "input.hpp"
 #include "vect2.hpp"
 
+
+#include <iostream>
 using namespace Engine;
 
 const Color LevelRenderer::DEFAULT_COLOR = Color::BLUE;
@@ -149,20 +151,60 @@ size_t LevelRenderer::laneCount() const
     return m_laneCount;
 }
 
-void LevelRenderer::drawEnemy(size_t line, double position, EnemyShape type)
+// TO DO : pass a type to Enemy Base Point
+std::vector<Line2f> EnemyBasePoint(EnemyShape type)
 {
-    assert(line<m_lines.size());
+    std::vector<Line2f> lines;
+    switch (type)
+    {
+    case SQUARE_MIDDLE:
+        lines = {
+        std::make_pair(Engine::Vect2f{0.45, 0}, Engine::Vect2f{0.55,   0}),
+        std::make_pair(Engine::Vect2f{0.55,  0}, Engine::Vect2f{0.55,    0.05}),
+        std::make_pair(Engine::Vect2f{0.55, 0.05},   Engine::Vect2f{0.45, 0.05}),
+        std::make_pair(Engine::Vect2f{0.45, 0.05},  Engine::Vect2f{0.45 , 0})
+        };
+        break;
+    
+    default:
+        break;
+    }
+    return lines;
+}
+
+void LevelRenderer::drawEnemy(std::shared_ptr<Enemy> e)
+{
+    assert(e->getLine()<m_lines.size());
     Line2f AB =std::make_pair<Vect2f, Vect2f>
-            (laneLines(line).first.second, laneLines(line).second.second);
+            (laneLines(e->getLine()).first.second, laneLines(e->getLine()).second.second);
     Vect2f U = vectorized(AB);
-    //reste a appliquer putinU sur chaque point de enemy pour le mettre sur AB
 
+    /** @brief put each point and normalized it to U */
+    std::shared_ptr<std::vector<Line2f>> lines;
+    lines = std::make_shared<std::vector<Line2f>>(EnemyBasePoint(e->getType()));
+    for (Line2f& line : *lines)
+    {
+        putinU(line.first, U, AB.first);
+        putinU(line.second, U, AB.first);
+    }
+    
+    /** @brief now move by homothetie 
+     * for now just move it linearly
+     * later fast on out than in
+    */
+    for (Line2f& line : *lines)
+    {
+        float h;
+        h=e->getPosition()/100;
+        homothetie(line.first, h);
+        homothetie(line.second, h);
+    }
+    m_enemy_lines.emplace_back(lines);
+}
 
-    //maintenant deplacer par hometructruc 
-    //attention origine pas zero 
-
-
-
+void LevelRenderer::clearEnemy()
+{
+    m_enemy_lines.clear();
 }
 
 void LevelRenderer::render(const Output &out) const
@@ -173,19 +215,41 @@ void LevelRenderer::render(const Output &out) const
     {
         out.drawLine(line.first, line.second);
     }
+    out.setColor(Color::RED);
+    for (const auto& enemy : m_enemy_lines)
+    {
+        for (const auto& line : *enemy)
+        {
+            out.drawLine(line.first, line.second);
+        }
+    }
 }
 
 void LevelRenderer::update([[maybe_unused]] const Input &in)
 { }
 
+/**
+ * @brief create geometrical vector from line
+ */
 Vect2f vectorized(Line2f l)
 {
     return Vect2f{l.second.x-l.first.x, l.second.y-l.first.y};
 }
 
-Vect2f putinU(Vect2f p, const Vect2f& U)
+/**
+ * @brief modify directly p to put in the U.V space
+ * V is orthogoanl to U and same length
+ */
+void putinU(Vect2f& p, const Vect2f& U, const Vect2f& A)
 {
-    p.x = U.x*p.x - U.y*p.y;
-    p.y = U.y*p.x + U.x*p.y;
-    return p;
+    Vect2f newp{p};
+    newp.x = U.x*p.x - U.y*p.y + A.x;
+    newp.y = U.y*p.x + U.x*p.y + A.y;
+    p = newp;
+}
+void LevelRenderer::homothetie(Vect2f& P, double h)
+{
+    Vect2f CP = P-m_center;
+    P = m_center+CP*(float)h;
+
 }

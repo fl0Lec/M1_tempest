@@ -14,3 +14,8 @@ bool Enemy::asReachEnd() const
 {
     return getPosition()>100;
 }
+
+void Enemy::update (const Engine::Input &in)
+{
+    m_position+=m_speed;
+}

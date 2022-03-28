@@ -26,6 +26,7 @@ int main()
 	// game->setCurrentScene(displayScene);
 
 	std::shared_ptr<GameScene> gameScene{new GameScene{}};
+	gameScene->createEnemy(SQUARE_MIDDLE);
 	game->setCurrentScene(gameScene);
 
 	game->run();

@@ -7,6 +7,7 @@
 #define __VECT2_H__
 
 #include <cmath>
+#include <iostream>
 
 namespace Engine
 {
@@ -153,6 +154,12 @@ template<typename T>
 Vect2<T> operator/(const Vect2<T> & v1, const T & c)
 {
     return Vect2<T>{v1.x / c, v1.y / c};
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream & os, const Vect2<T> & p)
+{
+    return os<<"|"<<p.x<<";"<<p.y<<"|";
 }
 
 using Vect2f = Vect2<float>;
