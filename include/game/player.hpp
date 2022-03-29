@@ -2,6 +2,7 @@
 #define __PLAYER_H_
 
 #include "entity.hpp"
+
 class Player
     : public Entity
 {
