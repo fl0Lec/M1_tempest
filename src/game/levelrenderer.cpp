@@ -57,17 +57,17 @@ std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
                 std::make_pair(Vect2f{-0.5,  1},    Vect2f{-2,  2}),
                 std::make_pair(Vect2f{-0.5,  0.75}, Vect2f{-2,  1}),
                 std::make_pair(Vect2f{-0.5,  0.5},  Vect2f{-2,  0}),
-                std::make_pair(Vect2f{-0.5,  0.25}, Vect2f{-2,  -1}),
-                std::make_pair(Vect2f{-0.5,   0},    Vect2f{-2,  -2}),
-                std::make_pair(Vect2f{-0.25,  0},    Vect2f{-1, -2}),
-                std::make_pair(Vect2f{ 0,     0},    Vect2f{ 0, -2}),
-                std::make_pair(Vect2f{ 0.25,  0},    Vect2f{ 1, -2}),
-                std::make_pair(Vect2f{ 0.5,   0},    Vect2f{ 2, -2}),
+                std::make_pair(Vect2f{-0.5,  0.25}, Vect2f{-2, -1}),
+                std::make_pair(Vect2f{-0.5,  0},    Vect2f{-2, -2}),
+                std::make_pair(Vect2f{-0.25, 0},    Vect2f{-1, -2}),
+                std::make_pair(Vect2f{ 0,    0},    Vect2f{ 0, -2}),
+                std::make_pair(Vect2f{ 0.25, 0},    Vect2f{ 1, -2}),
+                std::make_pair(Vect2f{ 0.5,  0},    Vect2f{ 2, -2}),
                 std::make_pair(Vect2f{ 0.5,  0.25}, Vect2f{ 2, -1}),
-                std::make_pair(Vect2f{ 0.5,  0.5},  Vect2f{ 2, 0}),
-                std::make_pair(Vect2f{ 0.5,  0.75}, Vect2f{ 2, 1}),
-                std::make_pair(Vect2f{ 0.5,  1},    Vect2f{ 2, 2}),
-                std::make_pair(Vect2f{ 0.25,  1},   Vect2f{ 1,  2}),
+                std::make_pair(Vect2f{ 0.5,  0.5},  Vect2f{ 2,  0}),
+                std::make_pair(Vect2f{ 0.5,  0.75}, Vect2f{ 2,  1}),
+                std::make_pair(Vect2f{ 0.5,  1},    Vect2f{ 2,  2}),
+                std::make_pair(Vect2f{ 0.25, 1},    Vect2f{ 1,  2}),
                 std::make_pair(Vect2f{ 0,    1},    Vect2f{ 0,  2})
             };
             for(auto& line : lines)
@@ -132,11 +132,13 @@ LevelRenderer::LevelRenderer(const Vect2f& center, LevelType type)
         const Line2f line = normalizeLine(*it);
 
         m_lines.emplace_back(line);
-        m_lines.emplace_back(std::make_pair(line.first, last.first));
-        m_lines.emplace_back(std::make_pair(line.second, last.second));
+        m_endLines.emplace_back(std::make_pair(line.first, last.first));
+        m_endLines.emplace_back(std::make_pair(line.second, last.second));
 
         last = line;
     }
+
+    setPlayerLane(0);
 }
 
 std::pair<Line2f, Line2f> LevelRenderer::laneLines(size_t lane)
@@ -149,6 +151,22 @@ std::pair<Line2f, Line2f> LevelRenderer::laneLines(size_t lane)
 size_t LevelRenderer::laneCount() const
 {
     return m_laneCount;
+}
+
+void LevelRenderer::setPlayerLane(size_t lane)
+{
+    std::pair<Line2f, Line2f> selectedLines = laneLines(lane);
+
+    m_selectedLines.clear();
+    m_selectedLines.emplace_back(selectedLines.first);
+    m_selectedLines.emplace_back(selectedLines.second);
+
+    m_selectedLines.emplace_back(std::make_pair(
+        selectedLines.first.first, selectedLines.second.first)
+    );
+    m_selectedLines.emplace_back(std::make_pair(
+        selectedLines.first.second, selectedLines.second.second)
+    );
 }
 
 // TO DO : pass a type to Enemy Base Point
@@ -211,11 +229,22 @@ void LevelRenderer::clearEnemy()
 void LevelRenderer::render(const Output &out) const
 {
     out.setColor(DEFAULT_COLOR);
-
     for(const auto& line : m_lines)
     {
         out.drawLine(line.first, line.second);
     }
+    for(const auto& line : m_endLines)
+    {
+        out.drawLine(line.first, line.second);
+    }
+
+    out.setColor(PLAYER_COLOR);
+    for(const auto& line : m_selectedLines)
+    {
+        out.drawLine(line.first, line.second);
+    }
+
+    // TODO Move to enemy
     out.setColor(Color::RED);
     for (const auto& enemy : m_enemy_lines)
     {

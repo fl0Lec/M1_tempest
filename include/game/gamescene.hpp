@@ -19,7 +19,7 @@ class GameScene
     : public Engine::Scene
 {
 public:
-    GameScene(LevelType level = SQUARE);
+    GameScene(LevelType level);
 
     size_t getNbLine() const;
 

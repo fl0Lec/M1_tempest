@@ -6,12 +6,14 @@
 
 GameScene::GameScene(LevelType level)
     : m_level(new LevelRenderer{Engine::Game::instance()->center(), level}),
-        m_player(new Player{})
+        m_player(new Player{m_level})
 {
     // Insert level first to be in background, if not we should render it manually
     m_objects.emplace_back(m_level);
 
     m_objects.emplace_back(m_player);
+
+    createEnemy(SQUARE_MIDDLE);
 }
 
 void GameScene::createEnemy(EnemyShape type)

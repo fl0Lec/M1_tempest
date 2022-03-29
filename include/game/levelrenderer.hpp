@@ -96,11 +96,12 @@ private:
     const LevelType m_type;
     const Engine::Vect2f m_center;
     
-    size_t m_playerLane;
     size_t m_laneCount;
     
     /** Lines to be drawned as background */
     std::vector<Line2f> m_lines;
+    std::vector<Line2f> m_endLines;
+    std::vector<Line2f> m_selectedLines;
 
     std::vector<std::shared_ptr<std::vector<Line2f>>> m_enemy_lines;
 

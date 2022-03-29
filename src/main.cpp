@@ -25,8 +25,7 @@ int main()
 	// std::shared_ptr<LevelDisplayScene> displayScene{new LevelDisplayScene{}};
 	// game->setCurrentScene(displayScene);
 
-	std::shared_ptr<GameScene> gameScene{new GameScene{}};
-	gameScene->createEnemy(SQUARE_MIDDLE);
+	std::shared_ptr<GameScene> gameScene{new GameScene{LevelType::SQUARE}};
 	game->setCurrentScene(gameScene);
 
 	game->run();
