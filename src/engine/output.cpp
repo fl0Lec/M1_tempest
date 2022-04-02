@@ -31,6 +31,11 @@ void Output::drawLine(Vect2f s, Vect2f d) const
     SDL_RenderDrawLineF(m_render, s.x, s.y, d.x, d.y);
 }
 
+void Output::drawLine(Line2f l) const
+{
+    drawLine(l.first, l.second);
+}
+
 void Output::render() const
 {
     SDL_RenderPresent(m_render);

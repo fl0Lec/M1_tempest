@@ -16,11 +16,7 @@
 #include "output.hpp"
 #include "vect2.hpp"
 #include "enemy.hpp"
-
-// Use a pair of vector to describe a line,
-//  first vector is the point near the center
-//  second vector is the point near the player
-using Line2f = std::pair<Engine::Vect2f, Engine::Vect2f>;
+#include "geometry.hpp"
 
 /**
  * @brief Describes the different possible levels
@@ -73,19 +69,19 @@ protected:
     /**
      * @brief Computes the structure of a level based on its type
      */
-    static std::vector<Line2f> levelBasePoints(LevelType type);
+    static std::vector<Engine::Line2f> levelBasePoints(LevelType type);
 
     /**
      * @brief Get the two lines associated to a lane number
      * 
      * @param lane Number of the lane
      */
-    std::pair<Line2f, Line2f> laneLines(size_t lane);
+    std::pair<Engine::Line2f, Engine::Line2f> laneLines(size_t lane);
 
     /**
      * @brief Normalize a line to fit in the window
      */
-    Line2f normalizeLine(Line2f line);
+    Engine::Line2f normalizeLine(Engine::Line2f line);
 
     /**
     * @brief move point (modify) in between himself and the center by a factor of h
@@ -99,11 +95,11 @@ private:
     size_t m_laneCount;
     
     /** Lines to be drawned as background */
-    std::vector<Line2f> m_lines;
-    std::vector<Line2f> m_endLines;
-    std::vector<Line2f> m_selectedLines;
+    std::vector<Engine::Line2f> m_lines;
+    std::vector<Engine::Line2f> m_endLines;
+    std::vector<Engine::Line2f> m_selectedLines;
 
-    std::vector<std::shared_ptr<std::vector<Line2f>>> m_enemy_lines;
+    std::vector<std::shared_ptr<std::vector<Engine::Line2f>>> m_enemy_lines;
 
     static const Engine::Color DEFAULT_COLOR;
     static const Engine::Color PLAYER_COLOR;
@@ -119,7 +115,7 @@ private:
 
 };
 
-Engine::Vect2f vectorized(Line2f l);
+Engine::Vect2f vectorized(Engine::Line2f l);
 
 void putinU(Engine::Vect2f &p, const Engine::Vect2f& U, const Engine::Vect2f& A);
 

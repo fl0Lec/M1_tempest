@@ -10,6 +10,7 @@
 #include <SDL.h>
 
 #include "color.hpp"
+#include "geometry.hpp"
 #include "vect2.hpp"
 
 namespace Engine
@@ -47,6 +48,8 @@ public:
      * @param d Destination point
      */
     void drawLine(Vect2f s, Vect2f d) const;
+
+    void drawLine(Line2f l) const;
 
     /**
      * @brief Render all buffered drawing operations on screen

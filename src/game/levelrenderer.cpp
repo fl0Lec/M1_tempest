@@ -4,14 +4,13 @@
 #include <utility>
 #include <vector>
 #include <cassert>
+#include <iostream>
 
 #include "color.hpp"
 #include "game.hpp"
 #include "input.hpp"
 #include "vect2.hpp"
 
-
-#include <iostream>
 using namespace Engine;
 
 const Color LevelRenderer::DEFAULT_COLOR = Color::BLUE;
@@ -236,17 +235,17 @@ void LevelRenderer::render(const Output &out) const
     out.setColor(DEFAULT_COLOR);
     for(const auto& line : m_lines)
     {
-        out.drawLine(line.first, line.second);
+        out.drawLine(line);
     }
     for(const auto& line : m_endLines)
     {
-        out.drawLine(line.first, line.second);
+        out.drawLine(line);
     }
 
     out.setColor(PLAYER_COLOR);
     for(const auto& line : m_selectedLines)
     {
-        out.drawLine(line.first, line.second);
+        out.drawLine(line);
     }
 
     // TODO Move to enemy
@@ -255,7 +254,7 @@ void LevelRenderer::render(const Output &out) const
     {
         for (const auto& line : *enemy)
         {
-            out.drawLine(line.first, line.second);
+            out.drawLine(line);
         }
     }
 }
