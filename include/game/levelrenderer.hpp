@@ -62,6 +62,13 @@ public:
      */
     void clearEnemy();
 
+    /**
+     * @brief Get the two lines associated to a lane number
+     * 
+     * @param lane Number of the lane
+     */
+    std::pair<Engine::Line2f, Engine::Line2f> laneLines(size_t lane);
+
     virtual void render(const Engine::Output &out) const override;
     virtual void update(const Engine::Input &in) override;
 
@@ -70,13 +77,6 @@ protected:
      * @brief Computes the structure of a level based on its type
      */
     static std::vector<Engine::Line2f> levelBasePoints(LevelType type);
-
-    /**
-     * @brief Get the two lines associated to a lane number
-     * 
-     * @param lane Number of the lane
-     */
-    std::pair<Engine::Line2f, Engine::Line2f> laneLines(size_t lane);
 
     /**
      * @brief Normalize a line to fit in the window

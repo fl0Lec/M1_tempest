@@ -1,6 +1,12 @@
 #include "player.hpp"
 
+#include "color.hpp"
+#include "geometry.hpp"
 #include "keycode.hpp"
+#include "levelrenderer.hpp"
+#include "vect2.hpp"
+
+#include <utility>
 
 using namespace Engine;
 
@@ -36,5 +42,16 @@ void Player::update(const Engine::Input &in)
 
 void Player::render(const Output &out) const
 {
-    // TODO
+    const std::pair<Line2f, Line2f> lanes = m_level->laneLines(m_line);
+
+    const Vect2f fromCenter
+        = Vect2f::middle(lanes.first.second, lanes.second.second)
+        - Vect2f::middle(lanes.first.first, lanes.second.first);
+
+    const Vect2f end = Vect2f::middle(lanes.first.second, lanes.second.second);
+
+    // TODO adapt drawing to have 90 degrees angle, and not directly attached to line
+    out.setColor(Color::YELLOW);
+    out.drawLine(lanes.first.second, end + fromCenter * 0.3f);
+    out.drawLine(lanes.second.second, end + fromCenter * 0.3f);
 }

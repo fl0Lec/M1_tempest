@@ -82,6 +82,11 @@ struct Vect2
         return std::sqrt(x * x + y * y);
     }
 
+    static Vect2<T> middle(const Vect2<T>& a, const Vect2<T>& b)
+    {
+        return (a + b) / T{2};
+    }
+
 };
 
 template<typename T>
