@@ -6,9 +6,11 @@
 #ifndef __GAMESCENE_H__
 #define __GAMESCENE_H__
 
+#include "output.hpp"
 #include "scene.hpp"
 
 #include <memory>
+#include <unordered_set>
 
 #include "entity.hpp"
 #include "enemy.hpp"
@@ -25,12 +27,13 @@ public:
 
     void createEnemy(EnemyShape type);
 
-    void update(const Engine::Input &in) override;
+    virtual void update(const Engine::Input &in) override;
+    virtual void render(const Engine::Output &out) const override;
 
 private:
     std::shared_ptr<LevelRenderer> m_level;
 
-    std::vector<std::shared_ptr<Enemy>> m_enemy;
+    std::unordered_set<std::shared_ptr<Enemy>> m_enemies;
     std::shared_ptr<Player> m_player;
 
 };

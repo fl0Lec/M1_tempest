@@ -25,6 +25,8 @@ public:
     virtual void render(const Output &out) const override;
 
 protected:
+    void remove(const std::shared_ptr<GameObject>& obj);
+
     /** List of objects that will be updated and rendered */
     std::vector<std::shared_ptr<GameObject>> m_objects;
 
