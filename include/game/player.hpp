@@ -13,12 +13,12 @@ public:
     Player(const std::shared_ptr<LevelRenderer>& level);
 
     virtual void update(const Engine::Input &in) override;
+    virtual void render(const Engine::Output &out) const override;
 
 private:
     std::shared_ptr<LevelRenderer> m_level;
 
     int m_moveCooldown;
-    size_t m_currentLane;
 
     /** How many updates between player's moves */
     static const int MOVE_COOLDOWN = 5;

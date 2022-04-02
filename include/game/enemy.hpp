@@ -6,6 +6,7 @@
 
 #include <vector>
 
+#include "output.hpp"
 #include "vect2.hpp"
 
 enum EnemyShape {SQUARE_MIDDLE};
@@ -19,10 +20,9 @@ public :
      * @param speed speed of the element in the line
      * @param type 
      */
-    //Enemy();
     Enemy(uint line, double speed, EnemyShape type);
 
-    EnemyShape getType() const;
+    EnemyShape type() const;
 
     /**
      * @brief tell if enemy as reach opposite line, if so then destroy it
@@ -32,9 +32,9 @@ public :
     /**
      * @brief update postion and line depending on speed
      */
-    void update (const Engine::Input &in) override;
-    
+    virtual void update(const Engine::Input &in) override;
 
+    virtual void render(const Engine::Output &out) const override;
 
 private:
     double m_speed;

@@ -192,14 +192,19 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
 
 void LevelRenderer::drawEnemy(std::shared_ptr<Enemy> e)
 {
-    assert(e->getLine()<m_lines.size());
-    std::pair<Line2f, Line2f> llines = laneLines(e->getLine());
-    Line2f  top = std::make_pair<Vect2f, Vect2f>(laneLines(e->getLine()).first.second, laneLines(e->getLine()).second.second);
-    Vect2f U = vectorized(top), middle = (llines.first.first+llines.second.first)/(float)2; 
+    assert(e->line() < m_lines.size());
+
+    std::pair<Line2f, Line2f> llines = laneLines(e->line());
+    Line2f top = std::make_pair<Vect2f, Vect2f>(
+        laneLines(e->line()).first.second,
+        laneLines(e->line()).second.second
+    );
+    Vect2f U = vectorized(top),
+        middle = (llines.first.first+llines.second.first)/(float)2; 
 
     /** @brief put each point and normalized it to U */
     std::shared_ptr<std::vector<Line2f>> lines;
-    lines = std::make_shared<std::vector<Line2f>>(EnemyBasePoint(e->getType()));
+    lines = std::make_shared<std::vector<Line2f>>(EnemyBasePoint(e->type()));
     for (Line2f& line : *lines)
     {
         putinU(line.first, U, top.first);
@@ -213,7 +218,7 @@ void LevelRenderer::drawEnemy(std::shared_ptr<Enemy> e)
     for (Line2f& line : *lines)
     {
         float z, h;
-        z = e->getPosition()/100;
+        z = e->position()/100;
         h = z*z;
         homothetie(line.first, h, middle);
         homothetie(line.second, h, middle);
@@ -281,5 +286,4 @@ void LevelRenderer::homothetie(Vect2f& P, double h, const Vect2f& center)
 {
     Vect2f CP = P-center;
     P = center+CP*(float)h;
-
 }

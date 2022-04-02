@@ -24,22 +24,23 @@ void GameScene::createEnemy(EnemyShape type)
     m_objects.emplace_back(enemy);
 }
 
-size_t GameScene::getNbLine() const
+size_t GameScene::nbLine() const
 {
     return m_level->laneCount();
 }
 
- void GameScene::update(const Engine::Input &in)
- {
+void GameScene::update(const Engine::Input &in)
+{
     Engine::Scene::update(in);
     m_level->clearEnemy();
     for (auto& e : m_enemy)
     {
-        if (e->getPosition()<100)
+        // TODO Remove draw from update
+        if (e->position()<100)
             m_level->drawEnemy(e);
         else 
         {
             // TO DO check if same as user and remove
         }
     }
- }
+}

@@ -11,28 +11,26 @@ class Entity
 public:
     /**
      * @param line  number of line where start
-     * @param position original position (default 0=center)
+     * @param position original position on the line, between the center=0 
+        and the player=100
      */
-    Entity(uint line, double position=0);
+    Entity(uint line, double position = 0);
 
     /**
      * @brief get and set the line in which is the element
      */
-    unsigned int getLine() const;
-    void setLine(uint newLine);
+    unsigned int line() const;
+    void setLine(uint line);
 
     /**
      * @brief return the relative postion in the line
      */
-    double getPosition() const;
-
-    // TODO Implement in class or sub class (else code doesn't compile)
-    virtual void update(const Engine::Input &in) override;
-    virtual void render(const Engine::Output &out) const override;
+    double position() const;
     
 protected:
     uint m_line;
     double m_position;
+
 };
 
 #endif
