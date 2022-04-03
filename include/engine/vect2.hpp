@@ -27,6 +27,13 @@ struct Vect2
     Vect2(T a): x(a), y(a) {}
     Vect2(T x1, T y1): x(x1), y(y1) {}
 
+    /**
+     * @brief Construct vector based on two points
+     */
+    Vect2(const Vect2<T>& a, const Vect2<T>& b)
+        : Vect2{b - a}
+    {}
+
     Vect2(const Vect2<T> & v): x(v.x), y(v.y) {}
     Vect2<T>& operator=(const Vect2<T> & v)
     {

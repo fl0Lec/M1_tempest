@@ -108,9 +108,6 @@ private:
 
 };
 
-Engine::Vect2f vectorized(Engine::Line2f l);
-
 void putinU(Engine::Vect2f &p, const Engine::Vect2f& U, const Engine::Vect2f& A);
-
 
 #endif

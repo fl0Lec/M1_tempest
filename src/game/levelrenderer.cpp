@@ -200,7 +200,7 @@ void LevelRenderer::drawEnemy(const Output& out, const Enemy& e) const
         laneLines(e.line()).first.second,
         laneLines(e.line()).second.second
     );
-    Vect2f U = vectorized(top);
+    Vect2f U{top.first, top.second};
     Vect2f middle = Vect2f::middle(llines.first.first, llines.second.first); 
 
     // put each point and normalized it to U
@@ -252,14 +252,6 @@ void LevelRenderer::render(const Output &out) const
 
 void LevelRenderer::update([[maybe_unused]] const Input &in)
 { }
-
-/**
- * @brief create geometrical vector from line
- */
-Vect2f vectorized(Line2f l)
-{
-    return Vect2f{l.second.x-l.first.x, l.second.y-l.first.y};
-}
 
 /**
  * @brief modify directly p to put in the U.V space
