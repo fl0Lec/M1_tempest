@@ -28,7 +28,6 @@ public:
     void createEnemy(EnemyShape type);
 
     virtual void update(const Engine::Input &in) override;
-    virtual void render(const Engine::Output &out) const override;
 
 private:
     std::shared_ptr<LevelRenderer> m_level;

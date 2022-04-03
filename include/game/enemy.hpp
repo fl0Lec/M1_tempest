@@ -4,10 +4,13 @@
 
 #include "entity.hpp"
 
+#include <memory>
 #include <vector>
 
 #include "output.hpp"
 #include "vect2.hpp"
+
+class LevelRenderer;
 
 enum EnemyShape {SQUARE_MIDDLE};
 
@@ -20,7 +23,8 @@ public :
      * @param speed speed of the element in the line
      * @param type 
      */
-    Enemy(uint line, double speed, EnemyShape type);
+    Enemy(uint line, double speed, EnemyShape type,
+        const std::shared_ptr<LevelRenderer>& level);
 
     EnemyShape type() const;
 
@@ -39,6 +43,8 @@ public :
 private:
     double m_speed;
     EnemyShape m_type;
+    
+    const std::shared_ptr<LevelRenderer>& m_level;
 
 };
 

@@ -11,7 +11,7 @@
 using namespace Engine;
 
 Player::Player(const std::shared_ptr<LevelRenderer>& level)
-    : Entity(0, 100), m_level(level)
+    : Entity{0, 100}, m_level{level}
 { }
 
 void Player::update(const Engine::Input &in)

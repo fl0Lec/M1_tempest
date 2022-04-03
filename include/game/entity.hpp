@@ -3,6 +3,8 @@
 
 #include "gameobject.hpp"
 
+#include "color.hpp"
+
 typedef unsigned int uint;
 
 class Entity
@@ -26,6 +28,8 @@ public:
      * @brief return the relative postion in the line
      */
     double position() const;
+
+    static const Engine::Color ENEMY_COLOR;
     
 protected:
     uint m_line;
