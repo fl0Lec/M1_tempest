@@ -10,7 +10,7 @@
 #include "scene.hpp"
 
 #include <memory>
-#include <unordered_set>
+#include <vector>
 
 #include "entity.hpp"
 #include "enemy.hpp"
@@ -33,7 +33,7 @@ public:
 private:
     std::shared_ptr<LevelRenderer> m_level;
 
-    std::unordered_set<std::shared_ptr<Enemy>> m_enemies;
+    std::vector<std::shared_ptr<Enemy>> m_enemies;
     std::shared_ptr<Player> m_player;
 
 };
