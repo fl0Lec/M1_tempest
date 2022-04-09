@@ -24,8 +24,20 @@ void GameScene::createEnemy(EnemyShape type)
 {
     //TO UPGRADE where enemy (random)
     std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(0, 0.5, type, m_level);
-    m_enemies.emplace_back(enemy);
-    m_objects.emplace_back(enemy);
+    addEntity(enemy);
+}
+
+void GameScene::addEntity(const std::shared_ptr<Entity>& entity)
+{
+    m_entities.emplace_back(entity);
+    m_objects.emplace_back(entity);
+}
+
+void GameScene::removeEntity(const std::shared_ptr<Entity>& entity)
+{
+    remove(entity);
+    m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity),
+            m_entities.end());
 }
 
 size_t GameScene::nbLine() const
@@ -37,22 +49,8 @@ void GameScene::update(const Engine::Input &in)
 {
     Engine::Scene::update(in);
     
-    std::vector<std::shared_ptr<Enemy>> removed;
-    for (const auto& e : m_enemies)
-    {
-        if (e->position() >= 100)
-        {
-            // TODO Do appropiate thing according to game rules
-            
-            removed.emplace_back(e);
-            remove(e);
-        }
-    }
-    for(const auto& e : removed)
-    {
-        m_enemies.erase(std::remove(m_enemies.begin(), m_enemies.end(), e),
-            m_enemies.end());
-    }
+    checkEnemies();
+    checkMissiles();
 
     // TODO Real spawn system
     static int count = 0, lane = 0;
@@ -63,7 +61,30 @@ void GameScene::update(const Engine::Input &in)
 
         std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
             lane++ % m_level->laneCount(), 0.5, EnemyShape::SQUARE_MIDDLE, m_level);
-        m_enemies.emplace_back(enemy);
+        m_entities.emplace_back(enemy);
         m_objects.emplace_back(enemy);
     }
+}
+
+void GameScene::checkEnemies()
+{
+    std::vector<std::shared_ptr<Entity>> removed;
+    for (const auto& enemy : m_entities)
+    {
+        if (enemy->position() >= 100)
+        {
+            // TODO Do appropiate thing according to game rules
+            
+            removed.emplace_back(enemy);
+        }
+    }
+    for(const auto& enemy : removed)
+    {
+        removeEntity(enemy);
+    }
+}
+
+void GameScene::checkMissiles()
+{
+    // TODO
 }
