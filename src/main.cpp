@@ -15,7 +15,6 @@ using namespace Engine;
 #define WINDOW_WIDTH  1080
 #define WINDOW_HEIGHT 720
 
-// TODO Remove all
 int main()
 {
 	std::shared_ptr<Game> game(new Game("Tempest", WINDOW_WIDTH, WINDOW_HEIGHT));	
