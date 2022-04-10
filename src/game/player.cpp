@@ -14,7 +14,8 @@
 using namespace Engine;
 
 Player::Player(LevelRenderer& level, GameScene& game)
-    : Entity{0, MAX_POSITION}, m_level{level}, m_game{game}
+    : Entity{0, MAX_POSITION}, m_level{level}, m_game{game},
+        m_moveCooldown{0}, m_shootCooldown{0}
 { }
 
 void Player::update(const Engine::Input &in)
