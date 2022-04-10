@@ -62,7 +62,7 @@ void TextComponent::render(const Output &out) const
     out.setColor(m_color);
 
     Vect2f start{m_position};
-    for(const auto& c : m_text)
+    for(char c : m_text)
     {
         Hershey::drawLetter(out, c, start);
         start.x += Hershey::getLetterWidth(c) + INTER_LETTER_SPACE;
@@ -71,12 +71,12 @@ void TextComponent::render(const Output &out) const
 
 void TextComponent::computePosition()
 {
-    const int width =
-        std::reduce(m_text.cbegin(), m_text.cend(), 0, [](const auto& acc, const auto& c)
-        {
-            return acc + Hershey::getLetterWidth(c);
-        })
-        + INTER_LETTER_SPACE * (m_text.size() - 1);
+    int width = INTER_LETTER_SPACE * (m_text.size() - 1);
+
+    for(char c : m_text)
+    {
+        width += Hershey::getLetterWidth(c);
+    }
 
     m_position = Vect2f(m_center.x - width / 2.0, m_center.y);
 }
