@@ -104,7 +104,7 @@ private:
     /**
      * @brief Pourcentage of the window occupied by the lanes
      */
-    static constexpr float LANE_SIZE = 0.8f;
+    static constexpr float LANE_SIZE = 0.7f;
 
 };
 

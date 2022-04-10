@@ -9,13 +9,27 @@
 #include "missile.hpp"
 #include "player.hpp"
 #include "scene.hpp"
+#include "textcomponent.hpp"
+
+using namespace Engine;
 
 GameScene::GameScene(LevelType level)
-    : m_level{new LevelRenderer{Engine::Game::instance()->center(), level}},
-        m_player(new Player{*m_level, *this})
+    : m_level{new LevelRenderer{
+            Game::instance()->center()
+                - Vect2f{0, Game::instance()->height() / 15.0f},
+            level
+        }},
+        m_player(new Player{*m_level, *this}),
+        m_score{0},
+        m_scoreText{new TextComponent{
+            Game::instance()->center()
+                + Vect2f{0, Game::instance()->height() * 2.0f / 5.0f},
+            "Score: 0", Color::BLUE
+        }}
 {
     // Insert level first to be in background, if not we should render it manually
     m_objects.emplace_back(m_level);
+    m_objects.emplace_back(m_scoreText);
 
     m_objects.emplace_back(m_player);
 
@@ -112,6 +126,9 @@ void GameScene::checkMissiles()
                 {
                     removedEnemies.emplace_back(enemy);
                     removedMissiles.emplace_back(missile);
+
+                    m_score += enemy->givenScore();
+                    m_scoreText->setText("Score: " + std::to_string(m_score));
                 }
             }
         }

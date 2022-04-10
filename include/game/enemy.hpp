@@ -32,6 +32,11 @@ public :
     bool asReachEnd() const; 
 
     /**
+     * @brief tell how much score the player wins when killing this enemy
+     */
+    virtual unsigned int givenScore() const;
+
+    /**
      * @brief update postion and line depending on speed
      */
     virtual void update(const Engine::Input &in) override;
@@ -39,6 +44,7 @@ public :
     virtual void render(const Engine::Output &out) const override;
 
     static const Engine::Color ENEMY_COLOR;
+    static constexpr unsigned int GIVEN_SCORE = 10;
 
 private:
     double m_speed;

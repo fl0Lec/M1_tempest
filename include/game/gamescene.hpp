@@ -17,6 +17,7 @@
 #include "player.hpp"
 #include "missile.hpp"
 #include "output.hpp"
+#include "textcomponent.hpp"
 
 class GameScene
     : public Engine::Scene
@@ -48,8 +49,11 @@ private:
     std::vector<std::shared_ptr<Enemy>> m_enemies;
     std::vector<std::shared_ptr<Missile>> m_missiles;
     std::vector<std::shared_ptr<Missile>> m_newMissiles;
+
     std::shared_ptr<Player> m_player;
 
+    unsigned int m_score;
+    std::shared_ptr<Engine::TextComponent> m_scoreText;
 };
 
 #endif

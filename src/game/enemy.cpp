@@ -22,6 +22,11 @@ bool Enemy::asReachEnd() const
     return position() >= 100;
 }
 
+unsigned int Enemy::givenScore() const
+{
+    return GIVEN_SCORE;
+}
+
 void Enemy::update([[maybe_unused]] const Input &in)
 {
     m_position += m_speed;
