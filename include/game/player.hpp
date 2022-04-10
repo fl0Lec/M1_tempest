@@ -13,13 +13,13 @@ class Player
     : public Entity
 {
 public:
-    Player(const std::shared_ptr<LevelRenderer>& level, GameScene& game);
+    Player(LevelRenderer& level, GameScene& game);
 
     virtual void update(const Engine::Input &in) override;
     virtual void render(const Engine::Output &out) const override;
 
 private:
-    std::shared_ptr<LevelRenderer> m_level;
+    LevelRenderer& m_level;
     GameScene& m_game;
 
     int m_moveCooldown, m_shootCooldown;

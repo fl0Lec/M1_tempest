@@ -13,7 +13,7 @@
 
 using namespace Engine;
 
-Player::Player(const std::shared_ptr<LevelRenderer>& level, GameScene& game)
+Player::Player(LevelRenderer& level, GameScene& game)
     : Entity{0, MAX_POSITION}, m_level{level}, m_game{game}
 { }
 
@@ -28,11 +28,11 @@ void Player::update(const Engine::Input &in)
         && (in.isKeyPressed(Engine::KEY_Q) || in.isKeyPressed(Engine::KEY_LEFT)))
     {
         if(m_line == 0)
-            m_line = m_level->laneCount() - 1;
+            m_line = m_level.laneCount() - 1;
         else
             m_line -= 1;
 
-        m_level->setPlayerLane(m_line % m_level->laneCount());
+        m_level.setPlayerLane(m_line % m_level.laneCount());
         m_moveCooldown = MOVE_COOLDOWN;
     }
     else if(m_moveCooldown <= 0
@@ -40,14 +40,14 @@ void Player::update(const Engine::Input &in)
     {
         m_line += 1;
 
-        m_level->setPlayerLane(m_line % m_level->laneCount());
+        m_level.setPlayerLane(m_line % m_level.laneCount());
         m_moveCooldown = MOVE_COOLDOWN;
     }
 
     if(m_shootCooldown <= 0 && in.isKeyPressed(Engine::KEY_R))
     {
         std::shared_ptr<Missile> missile{new Missile(
-            m_line % m_level->laneCount(), *m_level.get())};
+            m_line % m_level.laneCount(), m_level)};
         m_game.addMissile(missile);
 
         m_shootCooldown = SHOOT_COOLDOWN;
@@ -56,7 +56,7 @@ void Player::update(const Engine::Input &in)
 
 void Player::render(const Output &out) const
 {
-    const std::pair<Line2f, Line2f> lanes = m_level->laneLines(m_line);
+    const std::pair<Line2f, Line2f> lanes = m_level.laneLines(m_line);
 
     const Vect2f fromCenter{
         Vect2f::center(lanes.first.first, lanes.second.first),

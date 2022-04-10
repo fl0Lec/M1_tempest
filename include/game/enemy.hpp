@@ -4,7 +4,6 @@
 
 #include "entity.hpp"
 
-#include <memory>
 #include <vector>
 
 #include "output.hpp"
@@ -23,8 +22,7 @@ public :
      * @param speed speed of the element in the line
      * @param type 
      */
-    Enemy(uint line, double speed, EnemyShape type,
-        const std::shared_ptr<LevelRenderer>& level);
+    Enemy(uint line, double speed, EnemyShape type, const LevelRenderer& level);
 
     EnemyShape type() const;
 
@@ -46,7 +44,7 @@ private:
     double m_speed;
     EnemyShape m_type;
     
-    const std::shared_ptr<LevelRenderer>& m_level;
+    const LevelRenderer& m_level;
 
 };
 

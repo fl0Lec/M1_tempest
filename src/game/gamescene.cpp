@@ -12,7 +12,7 @@
 
 GameScene::GameScene(LevelType level)
     : m_level{new LevelRenderer{Engine::Game::instance()->center(), level}},
-        m_player(new Player{m_level, *this})
+        m_player(new Player{*m_level, *this})
 {
     // Insert level first to be in background, if not we should render it manually
     m_objects.emplace_back(m_level);
@@ -27,7 +27,7 @@ void GameScene::createEnemy(EnemyShape type)
     //TO UPGRADE where enemy (random)
     static int lane = 0;
     std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
-            lane++ % m_level->laneCount(), 0.5, EnemyShape::SQUARE_MIDDLE, m_level);
+            lane++ % m_level->laneCount(), 0.5, EnemyShape::SQUARE_MIDDLE, *m_level);
 
     m_enemies.emplace_back(enemy);
     m_objects.emplace_back(enemy);
