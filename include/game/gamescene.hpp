@@ -6,7 +6,6 @@
 #ifndef __GAMESCENE_H__
 #define __GAMESCENE_H__
 
-#include "output.hpp"
 #include "scene.hpp"
 
 #include <memory>
@@ -16,6 +15,8 @@
 #include "enemy.hpp"
 #include "levelrenderer.hpp"
 #include "player.hpp"
+#include "missile.hpp"
+#include "output.hpp"
 
 class GameScene
     : public Engine::Scene
@@ -28,12 +29,9 @@ public:
     void createEnemy(EnemyShape type);
 
     /**
-     * @brief Add/Remove an entity from the scene
-     * 
-     * @param entity Entity to be added/removed
+     * @brief Add a missile to the scene
      */
-    void addEntity(const std::shared_ptr<Entity>& entity);
-    void removeEntity(const std::shared_ptr<Entity>& entity);
+    void addMissile(const std::shared_ptr<Missile>& missile);
 
     virtual void update(const Engine::Input &in) override;
 
@@ -47,7 +45,9 @@ protected:
 private:
     std::shared_ptr<LevelRenderer> m_level;
 
-    std::vector<std::shared_ptr<Entity>> m_entities;
+    std::vector<std::shared_ptr<Enemy>> m_enemies;
+    std::vector<std::shared_ptr<Missile>> m_missiles;
+    std::vector<std::shared_ptr<Missile>> m_newMissiles;
     std::shared_ptr<Player> m_player;
 
 };

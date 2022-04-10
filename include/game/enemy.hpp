@@ -40,6 +40,8 @@ public :
 
     virtual void render(const Engine::Output &out) const override;
 
+    static const Engine::Color ENEMY_COLOR;
+
 private:
     double m_speed;
     EnemyShape m_type;

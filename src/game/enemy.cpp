@@ -5,6 +5,8 @@
 
 using namespace Engine;
 
+const Engine::Color Enemy::ENEMY_COLOR = Engine::Color::RED;
+
 Enemy::Enemy(uint line, double speed, EnemyShape type,
     const std::shared_ptr<LevelRenderer>& level)
     : Entity{line, 0}, m_speed(speed), m_type(type), m_level(level)

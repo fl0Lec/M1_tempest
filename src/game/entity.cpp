@@ -3,8 +3,6 @@
 
 #include "color.hpp"
 
-const Engine::Color Entity::ENEMY_COLOR = Engine::Color::RED;
-
 Entity::Entity(uint line, double position)
     : m_line(line), m_position(position) {} 
 

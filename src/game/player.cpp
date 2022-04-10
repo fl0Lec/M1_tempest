@@ -1,23 +1,28 @@
 #include "player.hpp"
 
+#include <memory>
+#include <utility>
+
 #include "color.hpp"
 #include "geometry.hpp"
+#include "gamescene.hpp"
 #include "keycode.hpp"
 #include "levelrenderer.hpp"
+#include "missile.hpp"
 #include "vect2.hpp"
-
-#include <utility>
 
 using namespace Engine;
 
-Player::Player(const std::shared_ptr<LevelRenderer>& level)
-    : Entity{0, 100}, m_level{level}
+Player::Player(const std::shared_ptr<LevelRenderer>& level, GameScene& game)
+    : Entity{0, MAX_POSITION}, m_level{level}, m_game{game}
 { }
 
 void Player::update(const Engine::Input &in)
 {
     if(m_moveCooldown > 0)
         m_moveCooldown -= 1;
+    if(m_shootCooldown > 0)
+        m_shootCooldown -= 1;
     
     if(m_moveCooldown <= 0
         && (in.isKeyPressed(Engine::KEY_Q) || in.isKeyPressed(Engine::KEY_LEFT)))
@@ -37,6 +42,15 @@ void Player::update(const Engine::Input &in)
 
         m_level->setPlayerLane(m_line % m_level->laneCount());
         m_moveCooldown = MOVE_COOLDOWN;
+    }
+
+    if(m_shootCooldown <= 0 && in.isKeyPressed(Engine::KEY_R))
+    {
+        std::shared_ptr<Missile> missile{new Missile(
+            m_line % m_level->laneCount(), *m_level.get())};
+        m_game.addMissile(missile);
+
+        m_shootCooldown = SHOOT_COOLDOWN;
     }
 }
 

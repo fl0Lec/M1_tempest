@@ -16,7 +16,7 @@ public:
      * @param position original position on the line, between the center=0 
         and the player=100
      */
-    Entity(uint line, double position = 0);
+    Entity(uint line, double position = 0.0f);
 
     /**
      * @brief get and set the line in which is the element
@@ -29,7 +29,7 @@ public:
      */
     double position() const;
 
-    static const Engine::Color ENEMY_COLOR;
+    static constexpr float MAX_POSITION = 100.0f;
     
 protected:
     uint m_line;

@@ -2,26 +2,33 @@
 #define __PLAYER_H_
 
 #include "entity.hpp"
-#include "levelrenderer.hpp"
 
 #include <memory>
+
+#include "levelrenderer.hpp"
+
+class GameScene;
 
 class Player
     : public Entity
 {
 public:
-    Player(const std::shared_ptr<LevelRenderer>& level);
+    Player(const std::shared_ptr<LevelRenderer>& level, GameScene& game);
 
     virtual void update(const Engine::Input &in) override;
     virtual void render(const Engine::Output &out) const override;
 
 private:
     std::shared_ptr<LevelRenderer> m_level;
+    GameScene& m_game;
 
-    int m_moveCooldown;
+    int m_moveCooldown, m_shootCooldown;
 
-    /** How many updates between player's moves */
+    /** How many updates before a player can move again */
     static const int MOVE_COOLDOWN = 5;
+
+    /** How many updates before a player can shoot again */
+    static const int SHOOT_COOLDOWN = 15;
 
 };
 
