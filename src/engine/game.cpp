@@ -1,10 +1,12 @@
 
 #include "game.hpp"
-#include "vect2.hpp"
 
 #include <chrono>
 #include <cstdlib>
 #include <iostream>
+
+#include "SDL_events.h"
+#include "vect2.hpp"
 
 using namespace Engine;
 
@@ -60,6 +62,11 @@ void Game::run()
 			case SDL_QUIT:
 				quit = true;
 				break;
+            
+            case SDL_KEYUP:
+            case SDL_KEYDOWN:
+                m_input.keyboardEvent(event.key);
+                break;
 			}
         }
 

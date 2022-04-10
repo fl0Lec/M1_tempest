@@ -44,7 +44,7 @@ void Player::update(const Engine::Input &in)
         m_moveCooldown = MOVE_COOLDOWN;
     }
 
-    if(m_shootCooldown <= 0 && in.isKeyPressed(Engine::KEY_R))
+    if(m_shootCooldown <= 0 && in.isKeyPressed(Engine::KEY_SPACE))
     {
         std::shared_ptr<Missile> missile{new Missile(
             m_line % m_level.laneCount(), m_level)};

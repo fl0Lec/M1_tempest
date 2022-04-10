@@ -8,6 +8,8 @@
 
 #include <SDL.h>
 
+#include <set>
+
 #include "keycode.hpp"
 #include "vect2.hpp"
 
@@ -57,14 +59,15 @@ public:
 
     void update();
 
+    void keyboardEvent(struct SDL_KeyboardEvent ke);
+
 private:
     Vect2f m_mousePos;
     Uint32 m_mouseState;
     Uint32 m_oldMouseState;
 
-    const Uint8 * m_keyboardStatePtr;
-    Uint8 m_keyboardState[Keycode::KEY_MAX];
-    Uint8 m_oldKeyboardState[Keycode::KEY_MAX];
+    std::set<Keycode> m_keyboardPressed;
+    std::set<Keycode> m_oldKeyboardPressed;
 };
 
 };

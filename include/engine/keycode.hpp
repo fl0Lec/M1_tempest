@@ -6,67 +6,63 @@
 #ifndef __KEYCODE_H__
 #define __KEYCODE_H__
 
-#include "SDL_keycode.h"
-#include "SDL_scancode.h"
 #include <SDL.h>
 
 namespace Engine
 {
 
-enum Keycode : short
+enum Keycode : int
 {
-    KEY_0 = SDL_SCANCODE_0,
-    KEY_1 = SDL_SCANCODE_1,
-    KEY_2 = SDL_SCANCODE_2,
-    KEY_3 = SDL_SCANCODE_3,
-    KEY_4 = SDL_SCANCODE_4,
-    KEY_5 = SDL_SCANCODE_5,
-    KEY_6 = SDL_SCANCODE_6,
-    KEY_7 = SDL_SCANCODE_7,
-    KEY_8 = SDL_SCANCODE_8,
-    KEY_9 = SDL_SCANCODE_9,
+    KEY_0 = SDLK_0,
+    KEY_1 = SDLK_1,
+    KEY_2 = SDLK_2,
+    KEY_3 = SDLK_3,
+    KEY_4 = SDLK_4,
+    KEY_5 = SDLK_5,
+    KEY_6 = SDLK_6,
+    KEY_7 = SDLK_7,
+    KEY_8 = SDLK_8,
+    KEY_9 = SDLK_9,
 
-    KEY_A = SDL_SCANCODE_A,
-    KEY_B = SDL_SCANCODE_B,
-    KEY_C = SDL_SCANCODE_C,
-    KEY_D = SDL_SCANCODE_D,
-    KEY_E = SDL_SCANCODE_E,
-    KEY_F = SDL_SCANCODE_F,
-    KEY_G = SDL_SCANCODE_G,
-    KEY_H = SDL_SCANCODE_H,
-    KEY_I = SDL_SCANCODE_I,
-    KEY_J = SDL_SCANCODE_J,
-    KEY_K = SDL_SCANCODE_K,
-    KEY_L = SDL_SCANCODE_L,
-    KEY_M = SDL_SCANCODE_M,
-    KEY_N = SDL_SCANCODE_N,
-    KEY_O = SDL_SCANCODE_O,
-    KEY_P = SDL_SCANCODE_P,
-    KEY_Q = SDL_SCANCODE_Q,
-    KEY_R = SDL_SCANCODE_R,
-    KEY_S = SDL_SCANCODE_S,
-    KEY_T = SDL_SCANCODE_T,
-    KEY_U = SDL_SCANCODE_U,
-    KEY_V = SDL_SCANCODE_V,
-    KEY_W = SDL_SCANCODE_W,
-    KEY_X = SDL_SCANCODE_X,
-    KEY_Y = SDL_SCANCODE_Y,
-    KEY_Z = SDL_SCANCODE_Z,
+    KEY_A = SDLK_a,
+    KEY_B = SDLK_b,
+    KEY_C = SDLK_c,
+    KEY_D = SDLK_d,
+    KEY_E = SDLK_e,
+    KEY_F = SDLK_f,
+    KEY_G = SDLK_g,
+    KEY_H = SDLK_h,
+    KEY_I = SDLK_i,
+    KEY_J = SDLK_j,
+    KEY_K = SDLK_k,
+    KEY_L = SDLK_l,
+    KEY_M = SDLK_m,
+    KEY_N = SDLK_n,
+    KEY_O = SDLK_o,
+    KEY_P = SDLK_p,
+    KEY_Q = SDLK_q,
+    KEY_R = SDLK_r,
+    KEY_S = SDLK_s,
+    KEY_T = SDLK_t,
+    KEY_U = SDLK_u,
+    KEY_V = SDLK_v,
+    KEY_W = SDLK_w,
+    KEY_X = SDLK_x,
+    KEY_Y = SDLK_y,
+    KEY_Z = SDLK_z,
 
-    KEY_SPACE      = SDL_SCANCODE_SPACE,
-    KEY_ENTER      = SDL_SCANCODE_RETURN,
-    KEY_ESC        = SDL_SCANCODE_ESCAPE,
-    KEY_LEFT_CTRL  = SDL_SCANCODE_LCTRL,
-    KEY_RIGHT_CTRL = SDL_SCANCODE_RCTRL,
-    KEY_LEFT_ALT   = SDL_SCANCODE_LALT,
-    KEY_RIGHT_ALT  = SDL_SCANCODE_RALT,
+    KEY_SPACE      = SDLK_SPACE,
+    KEY_ENTER      = SDLK_RETURN,
+    KEY_ESC        = SDLK_ESCAPE,
+    KEY_LEFT_CTRL  = SDLK_LCTRL,
+    KEY_RIGHT_CTRL = SDLK_RCTRL,
+    KEY_LEFT_ALT   = SDLK_LALT,
+    KEY_RIGHT_ALT  = SDLK_RALT,
 
-    KEY_UP    = SDL_SCANCODE_UP,
-    KEY_DOWN  = SDL_SCANCODE_DOWN,
-    KEY_LEFT  = SDL_SCANCODE_LEFT,
-    KEY_RIGHT = SDL_SCANCODE_RIGHT,
-
-    KEY_MAX = SDL_NUM_SCANCODES    
+    KEY_UP    = SDLK_UP,
+    KEY_DOWN  = SDLK_DOWN,
+    KEY_LEFT  = SDLK_LEFT,
+    KEY_RIGHT = SDLK_RIGHT
 };
 
 };

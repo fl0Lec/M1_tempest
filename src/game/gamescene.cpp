@@ -1,14 +1,14 @@
 
 #include "gamescene.hpp"
 
+#include <memory>
+#include <vector>
+
 #include "enemy.hpp"
 #include "game.hpp"
 #include "missile.hpp"
 #include "player.hpp"
 #include "scene.hpp"
-#include <cassert>
-#include <memory>
-#include <vector>
 
 GameScene::GameScene(LevelType level)
     : m_level{new LevelRenderer{Engine::Game::instance()->center(), level}},
