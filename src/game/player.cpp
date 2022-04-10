@@ -59,11 +59,11 @@ void Player::render(const Output &out) const
     const std::pair<Line2f, Line2f> lanes = m_level->laneLines(m_line);
 
     const Vect2f fromCenter{
-        Vect2f::middle(lanes.first.first, lanes.second.first),
-        Vect2f::middle(lanes.first.second, lanes.second.second)
+        Vect2f::center(lanes.first.first, lanes.second.first),
+        Vect2f::center(lanes.first.second, lanes.second.second)
     };
 
-    const Vect2f end = Vect2f::middle(lanes.first.second, lanes.second.second);
+    const Vect2f end = Vect2f::center(lanes.first.second, lanes.second.second);
 
     // TODO adapt drawing to have 90 degrees angle, and not directly attached to line
     out.setColor(Color::YELLOW);

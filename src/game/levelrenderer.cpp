@@ -178,10 +178,10 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
     {
     case SQUARE_MIDDLE:
         lines = {
-        std::make_pair(Engine::Vect2f{0.40, 0}, Engine::Vect2f{0.6,   0}),
-        std::make_pair(Engine::Vect2f{0.6,  0}, Engine::Vect2f{0.6,    0.1}),
-        std::make_pair(Engine::Vect2f{0.6, 0.1},   Engine::Vect2f{0.4, 0.1}),
-        std::make_pair(Engine::Vect2f{0.4, 0.1},  Engine::Vect2f{0.4 , 0})
+            std::make_pair(Engine::Vect2f{0.40, 0},   Engine::Vect2f{0.6, 0}),
+            std::make_pair(Engine::Vect2f{0.6,  0},   Engine::Vect2f{0.6, 0.1}),
+            std::make_pair(Engine::Vect2f{0.6,  0.1}, Engine::Vect2f{0.4, 0.1}),
+            std::make_pair(Engine::Vect2f{0.4,  0.1}, Engine::Vect2f{0.4, 0})
         };
         break;
     
@@ -201,7 +201,7 @@ void LevelRenderer::drawEnemy(const Output& out, const Enemy& e) const
         laneLines(e.line()).second.second
     );
     Vect2f U{top.first, top.second};
-    Vect2f middle = Vect2f::middle(llines.first.first, llines.second.first); 
+    Vect2f middle = Vect2f::center(llines.first.first, llines.second.first); 
 
     // put each point and normalized it to U
     std::vector<Line2f> lines{EnemyBasePoint(e.type())};
