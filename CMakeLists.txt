@@ -25,4 +25,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/game
     ${CMAKE_CURRENT_SOURCE_DIR}/include/test
 )
+
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2main SDL2-static)

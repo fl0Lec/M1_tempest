@@ -84,6 +84,19 @@ struct Vect2
         return *this;
     }
 
+    /**
+     * @brief modify vector to put in the U.V space
+     * V is orthogonal to U and same length
+     */
+    void putInU(const Vect2<T>& U, const Vect2<T>& A)
+    {
+        const T x1 = U.x * x - U.y * y + A.x;
+        const T y1 = U.y * x + U.x * y + A.y;
+
+        x = x1;
+        y = y1;
+    }
+
     T norm() const
     {
         return std::sqrt(x * x + y * y);
@@ -92,7 +105,7 @@ struct Vect2
     /**
     * @brief move point (modify) in between himself and the center by a factor of h
     */
-    Vect2<T> homothetie(double h, Vect2<T>& center) const
+    Vect2<T> homothetie(T h, Vect2<T>& center) const
     {
         const Vect2<T> CP = *this - center;
         return center + CP * h;

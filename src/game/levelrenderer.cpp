@@ -207,8 +207,8 @@ void LevelRenderer::drawEnemy(const Output& out, const Enemy& e) const
     std::vector<Line2f> lines{EnemyBasePoint(e.type())};
     for (Line2f& line : lines)
     {
-        putinU(line.first, U, top.first);
-        putinU(line.second, U, top.first);
+        line.first.putInU(U, top.first);
+        line.second.putInU(U, top.first);
     }
 
     /** @brief now move by homothetie 
@@ -252,15 +252,3 @@ void LevelRenderer::render(const Output &out) const
 
 void LevelRenderer::update([[maybe_unused]] const Input &in)
 { }
-
-/**
- * @brief modify directly p to put in the U.V space
- * V is orthogonal to U and same length
- */
-void putinU(Vect2f& p, const Vect2f& U, const Vect2f& A)
-{
-    Vect2f newp{p};
-    newp.x = U.x*p.x - U.y*p.y + A.x;
-    newp.y = U.y*p.x + U.x*p.y + A.y;
-    p = newp;
-}
