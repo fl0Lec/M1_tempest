@@ -220,8 +220,8 @@ void LevelRenderer::drawEnemy(const Output& out, const Enemy& e) const
         float z, h;
         z = e.position()/100;
         h = z*z;
-        homothetie(line.first, h, middle);
-        homothetie(line.second, h, middle);
+        line.first = line.first.homothetie(h, middle);
+        line.second = line.second.homothetie(h, middle);
     }
 
     out.setColor(Enemy::ENEMY_COLOR);
@@ -263,9 +263,4 @@ void putinU(Vect2f& p, const Vect2f& U, const Vect2f& A)
     newp.x = U.x*p.x - U.y*p.y + A.x;
     newp.y = U.y*p.x + U.x*p.y + A.y;
     p = newp;
-}
-void LevelRenderer::homothetie(Vect2f& P, double h, const Vect2f& center) const
-{
-    Vect2f CP = P-center;
-    P = center+CP*(float)h;
 }

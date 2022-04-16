@@ -22,7 +22,8 @@ void Missile::render(const Engine::Output &out) const
     const Vect2f line1{lines.first.first, lines.first.second},
         line2{lines.second.first, lines.second.second};
 
-    const float top =    (m_position + WIDTH/2) / MAX_POSITION;
+    // TODO Maybe use homothetie
+    const float top    = (m_position + WIDTH/2) / MAX_POSITION;
     const float bottom = (m_position - WIDTH/2) / MAX_POSITION;
 
     const Vect2f base = Vect2f::center(lines.first.first, lines.second.first);

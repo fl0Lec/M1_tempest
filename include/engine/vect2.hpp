@@ -89,6 +89,15 @@ struct Vect2
         return std::sqrt(x * x + y * y);
     }
 
+    /**
+    * @brief move point (modify) in between himself and the center by a factor of h
+    */
+    Vect2<T> homothetie(double h, Vect2<T>& center) const
+    {
+        const Vect2<T> CP = *this - center;
+        return center + CP * h;
+    }
+
     static Vect2<T> center(const Vect2<T>& a, const Vect2<T>& b)
     {
         return (a + b) / T{2};

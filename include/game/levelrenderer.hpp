@@ -78,11 +78,6 @@ protected:
      */
     Engine::Line2f normalizeLine(Engine::Line2f line) const;
 
-    /**
-    * @brief move point (modify) in between himself and the center by a factor of h
-    */
-    void homothetie(Engine::Vect2f& A, double h, const Engine::Vect2f& center) const;
-
 private:
     const LevelType m_type;
     const Engine::Vect2f m_center;
