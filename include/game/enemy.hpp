@@ -11,7 +11,7 @@
 
 class LevelRenderer;
 
-enum EnemyShape {SQUARE_MIDDLE, FLIPPER};
+enum EnemyShape {SQUARE_MIDDLE, FLIPPER, SPIKER};
 
 class Enemy
     : public Entity

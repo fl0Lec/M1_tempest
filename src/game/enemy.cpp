@@ -44,6 +44,7 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
             std::make_pair(Engine::Vect2f{0.6,  -0.1}, Engine::Vect2f{0.4, -0.1}),
             std::make_pair(Engine::Vect2f{0.4,  -0.1}, Engine::Vect2f{0.4, 0})
         };
+        break;
     case FLIPPER :
         lines = {
             std::make_pair(Engine::Vect2f{0,0}, Engine::Vect2f{0.15,-0.15}),
@@ -56,7 +57,31 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
             std::make_pair(Engine::Vect2f{0.5,-0.2}, Engine::Vect2f{0,0}),
         };
         break;
-    
+    case SPIKER :
+        lines = {
+            std::make_pair(Engine::Vect2f{0.3, -0.062}, Engine::Vect2f{0.3,-0.165}),
+            std::make_pair(Engine::Vect2f{0.3, -0.165}, Engine::Vect2f{0.324, -0.269}),
+            std::make_pair(Engine::Vect2f{0.324, -0.269}, Engine::Vect2f{0.417,-0.35}),
+            std::make_pair(Engine::Vect2f{0.417, -0.35}, Engine::Vect2f{0.53, -0.392}),
+            std::make_pair(Engine::Vect2f{0.53, -0.392}, Engine::Vect2f{0.65, -0.312}),
+            std::make_pair(Engine::Vect2f{0.65, -0.312}, Engine::Vect2f{0.72, -0.222}),
+            std::make_pair(Engine::Vect2f{0.72, -0.222}, Engine::Vect2f{0.718, -0.113}),
+            std::make_pair(Engine::Vect2f{0.718, -0.113}, Engine::Vect2f{0.646, -0.043}),
+            std::make_pair(Engine::Vect2f{0.646, -0.043}, Engine::Vect2f{0.525, 0}),
+            std::make_pair(Engine::Vect2f{0.525, 0}, Engine::Vect2f{0.42, -0.06}),
+            std::make_pair(Engine::Vect2f{0.42, -0.06}, Engine::Vect2f{0.39, -0.18}),
+            std::make_pair(Engine::Vect2f{0.39, -0.18}, Engine::Vect2f{0.44, -0.279}),
+            std::make_pair(Engine::Vect2f{0.44, -0.279}, Engine::Vect2f{0.57, -0.279}),
+            std::make_pair(Engine::Vect2f{0.57, -0.279}, Engine::Vect2f{0.637, -0.156}),
+            std::make_pair(Engine::Vect2f{0.637, -0.156}, Engine::Vect2f{0.53, -0.092}),
+            std::make_pair(Engine::Vect2f{0.53, -0.092}, Engine::Vect2f{0.47, -0.147})
+        };
+        for (auto &line : lines) {
+            line.first*=0.8;
+            line.second*=0.8;
+            
+        }
+        break;
     default:
         break;
     }
