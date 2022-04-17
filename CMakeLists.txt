@@ -10,9 +10,11 @@ add_subdirectory(SDL)
 file(GLOB project_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/engine/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/engine/gui/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/game/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/test/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/include/engine/*.hpp"
+     "${CMAKE_CURRENT_SOURCE_DIR}/src/engine/gui/*.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/include/game/*.hpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/include/test/*.hpp"
 )
@@ -22,6 +24,7 @@ target_sources(${PROJECT_NAME} PRIVATE ${project_SRCS})
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/include/engine
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/engine/gui
     ${CMAKE_CURRENT_SOURCE_DIR}/include/game
     ${CMAKE_CURRENT_SOURCE_DIR}/include/test
 )
