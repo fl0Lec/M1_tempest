@@ -38,9 +38,10 @@ class LevelRenderer
 public:
     /**
      * @param center Center of the level
+     * @param size Size of the square that the drawing can occupy
      * @param type Type of level
      */
-    LevelRenderer(const Engine::Vect2f& center, LevelType type);
+    LevelRenderer(const Engine::Vect2f& center, size_t size, LevelType type);
 
     /**
      * @brief Counts the number of lanes in the selected level
@@ -76,6 +77,7 @@ protected:
 private:
     const LevelType m_type;
     const Engine::Vect2f m_center;
+    const size_t m_size;
     
     size_t m_laneCount;
     

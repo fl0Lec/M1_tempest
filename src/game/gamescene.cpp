@@ -14,9 +14,11 @@
 using namespace Engine;
 
 GameScene::GameScene(LevelType level)
-    : m_level{new LevelRenderer{
+    : m_level{
+        new LevelRenderer{
             Game::instance()->center()
                 - Vect2f{0, Game::instance()->height() / 15.0f},
+            Game::instance()->height(),
             level
         }},
         m_player(new Player{*m_level, *this}),

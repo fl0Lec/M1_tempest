@@ -111,7 +111,7 @@ std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
 
 Line2f LevelRenderer::normalizeLine(Line2f line) const
 {
-    const size_t height = Game::instance()->height() / 2;
+    const size_t height = m_size / 2;
 
     line.first = m_center + line.first * (height * CENTER_SIZE);
     line.second = m_center + line.second / 2.0f * (height * (CENTER_SIZE + LANE_SIZE));
@@ -119,8 +119,8 @@ Line2f LevelRenderer::normalizeLine(Line2f line) const
     return line;
 }
 
-LevelRenderer::LevelRenderer(const Vect2f& center, LevelType type)
-    : m_type(type), m_center(center)
+LevelRenderer::LevelRenderer(const Vect2f& center, size_t size, LevelType type)
+    : m_type(type), m_center(center), m_size(size)
 {
     const auto points = levelBasePoints(type);
     m_laneCount = points.size() - 1;

@@ -9,10 +9,11 @@
 LevelDisplayScene::LevelDisplayScene()
 {
     const Engine::Vect2f center = Engine::Game::instance()->center();
+    const size_t height = Engine::Game::instance()->height();
 
-    m_levels.emplace_back(LevelRenderer{center, LevelType::PLUS});
-    m_levels.emplace_back(LevelRenderer{center, LevelType::SQUARE});
-    m_levels.emplace_back(LevelRenderer{center, LevelType::TRIANGLE});
+    m_levels.emplace_back(LevelRenderer{center, height, LevelType::PLUS});
+    m_levels.emplace_back(LevelRenderer{center, height,  LevelType::SQUARE});
+    m_levels.emplace_back(LevelRenderer{center, height,  LevelType::TRIANGLE});
 }
 
 void LevelDisplayScene::update(const Engine::Input &in)
