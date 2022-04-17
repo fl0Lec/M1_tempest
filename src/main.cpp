@@ -18,17 +18,17 @@ using namespace Engine;
 
 int main()
 {
-	std::shared_ptr<Game> game(new Game("Tempest", WINDOW_WIDTH, WINDOW_HEIGHT));	
-	Game::setInstance(game);
+    std::shared_ptr<Game> game(new Game("Tempest", WINDOW_WIDTH, WINDOW_HEIGHT));	
+    Game::setInstance(game);
 
-	// Debug scene
-	// std::shared_ptr<LevelDisplayScene> displayScene{new LevelDisplayScene{}};
-	// game->setCurrentScene(displayScene);
+    // Debug scene
+    // std::shared_ptr<LevelDisplayScene> displayScene{new LevelDisplayScene{}};
+    // game->setCurrentScene(displayScene);
 
-	std::shared_ptr<ChooseLevelScene> levelsScene{new ChooseLevelScene{0}};
-	game->setCurrentScene(levelsScene);
+    std::shared_ptr<ChooseLevelScene> levelsScene{new ChooseLevelScene{0}};
+    game->setCurrentScene(levelsScene);
 
-	game->run();
+    game->run();
 
-	return 0;
+    return 0;
 }
