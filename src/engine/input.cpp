@@ -38,7 +38,7 @@ bool Input::isKeyPressed(Keycode key) const
 
 bool Input::isKeyReleased(Keycode key) const
 {
-    return m_oldKeyboardPressed.contains(key) && !isKeyPressed(key);
+    return m_keyboardReleased.contains(key);
 }
 
 void Input::update()
@@ -49,8 +49,11 @@ void Input::update()
 
     m_mousePos.x = x;
     m_mousePos.y = y;
+}
 
-    m_oldKeyboardPressed = m_keyboardPressed;
+void Input::postUpdate()
+{
+    m_keyboardReleased.clear();
 }
 
 void Input::keyboardEvent(struct SDL_KeyboardEvent ke)
@@ -62,5 +65,6 @@ void Input::keyboardEvent(struct SDL_KeyboardEvent ke)
     else if(ke.state == SDL_RELEASED)
     {
         m_keyboardPressed.erase((Keycode) ke.keysym.sym);
+        m_keyboardReleased.insert((Keycode) ke.keysym.sym);
     }
 }

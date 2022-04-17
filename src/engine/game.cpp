@@ -120,6 +120,7 @@ void Game::update()
 {
     m_input.update();
     m_currentScene->update(m_input);
+    m_input.postUpdate();
 }
 
 void Game::render()

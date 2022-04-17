@@ -58,6 +58,7 @@ public:
     bool isKeyReleased(Keycode key) const;
 
     void update();
+    void postUpdate();
 
     void keyboardEvent(struct SDL_KeyboardEvent ke);
 
@@ -67,7 +68,7 @@ private:
     Uint32 m_oldMouseState;
 
     std::set<Keycode> m_keyboardPressed;
-    std::set<Keycode> m_oldKeyboardPressed;
+    std::set<Keycode> m_keyboardReleased;
 };
 
 };
