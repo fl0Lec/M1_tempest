@@ -8,6 +8,7 @@
 
 #include "gamescene.hpp"
 #include "bnojourscene.hpp"
+#include "chooselevelscene.hpp"
 #include "leveldisplayscene.hpp"
 
 using namespace Engine;
@@ -24,8 +25,8 @@ int main()
 	// std::shared_ptr<LevelDisplayScene> displayScene{new LevelDisplayScene{}};
 	// game->setCurrentScene(displayScene);
 
-	std::shared_ptr<GameScene> gameScene{new GameScene{LevelType::SQUARE}};
-	game->setCurrentScene(gameScene);
+	std::shared_ptr<ChooseLevelScene> levelsScene{new ChooseLevelScene{0}};
+	game->setCurrentScene(levelsScene);
 
 	game->run();
 
