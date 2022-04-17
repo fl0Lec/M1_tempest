@@ -105,9 +105,9 @@ struct Vect2
     /**
     * @brief move point (modify) in between himself and the center by a factor of h
     */
-    Vect2<T> homothetie(T h, Vect2<T>& center) const
+    static Vect2<T> homothetie(T h, const Vect2<T>& a,const Vect2<T>& center)
     {
-        const Vect2<T> CP = *this - center;
+        const Vect2<T> CP = a - center;
         return center + CP * h;
     }
 

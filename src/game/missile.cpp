@@ -27,10 +27,12 @@ void Missile::render(const Engine::Output &out) const
     const float bottom = (m_position - WIDTH/2) / MAX_POSITION;
 
     const Vect2f base = Vect2f::center(lines.first.first, lines.second.first);
-
+    
+    float h;
+    h = (m_position/100) * (m_position/100);
     out.setColor(MISSILE_COLOR);
     out.drawLine({
-        base + Vect2f::center(line1 * top, line2 * top),
-        base + Vect2f::center(line1 * bottom, line2 * bottom),
+        Vect2f::homothetie(h, (base  + Vect2f::center(line1 * top, line2 * top)), base),
+        Vect2f::homothetie(h, (base + Vect2f::center(line1 * bottom, line2 * bottom)), base),
     });
 }

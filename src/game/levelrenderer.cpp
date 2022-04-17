@@ -194,7 +194,9 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
 void LevelRenderer::drawEnemy(const Output& out, const Enemy& e) const
 {
     assert(e.line() < m_lines.size());
-
+    /**
+     * @brief put the enemy in the good position in U space
+     */
     std::pair<Line2f, Line2f> llines = laneLines(e.line());
     Line2f top = std::make_pair<Vect2f, Vect2f>(
         laneLines(e.line()).first.second,
@@ -211,17 +213,16 @@ void LevelRenderer::drawEnemy(const Output& out, const Enemy& e) const
         line.second.putInU(U, top.first);
     }
 
-    /** @brief now move by homothetie 
-     * for now just move it linearly
-     * later fast on out than in
+    /** 
+     * @brief now move by homothetie 
     */
     for(Line2f& line : lines)
     {
         float z, h;
         z = e.position()/100;
         h = z*z;
-        line.first = line.first.homothetie(h, middle);
-        line.second = line.second.homothetie(h, middle);
+        line.first = Vect2f::homothetie(h, line.first, middle);
+        line.second = Vect2f::homothetie(h, line.second, middle);
     }
 
     out.setColor(Enemy::ENEMY_COLOR);
