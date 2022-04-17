@@ -10,6 +10,7 @@
 
 #include "game.hpp"
 #include "gamescene.hpp"
+#include "levelbutton.hpp"
 #include "levelrenderer.hpp"
 #include "player.hpp"
 #include "textcomponent.hpp"
@@ -32,10 +33,8 @@ ChooseLevelScene::ChooseLevelScene(unsigned int playerId)
         }
     });
 
-    const std::vector<std::pair<std::string, LevelType>> levels{
-        {"Plus", LevelType::PLUS},
-        {"Square", LevelType::SQUARE},
-        {"Triangle", LevelType::TRIANGLE}
+    const std::vector<LevelType> levels{
+        LevelType::PLUS, LevelType::SQUARE, LevelType::TRIANGLE
     };
 
     const size_t baseY = 3 * Game::instance()->height() / 4;
@@ -44,12 +43,11 @@ ChooseLevelScene::ChooseLevelScene(unsigned int playerId)
         / levels.size();
 
     size_t currentX = margin;
-    for(const auto& level : levels)
+    for(const auto& type : levels)
     {
-        const auto type = level.second;
-        addButton(std::shared_ptr<Button>{
-            new Button{Vect2f{(float) currentX, baseY - width/2.0f},
-                Vect2f{(float) width}, level.first, [=](auto){
+        addButton(std::shared_ptr<LevelButton>{
+            new LevelButton{Vect2f{(float) currentX, baseY - width/2.0f},
+                Vect2f{(float) width}, type, [=](auto){
                     Game::instance()->setCurrentScene(
                         std::shared_ptr<GameScene>{new GameScene{type}}
                     );
