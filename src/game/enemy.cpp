@@ -40,9 +40,20 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
     case SQUARE_MIDDLE:
         lines = {
             std::make_pair(Engine::Vect2f{0.40, 0},   Engine::Vect2f{0.6, 0}),
-            std::make_pair(Engine::Vect2f{0.6,  0},   Engine::Vect2f{0.6, 0.1}),
-            std::make_pair(Engine::Vect2f{0.6,  0.1}, Engine::Vect2f{0.4, 0.1}),
-            std::make_pair(Engine::Vect2f{0.4,  0.1}, Engine::Vect2f{0.4, 0})
+            std::make_pair(Engine::Vect2f{0.6,  0},   Engine::Vect2f{0.6, -0.1}),
+            std::make_pair(Engine::Vect2f{0.6,  -0.1}, Engine::Vect2f{0.4, -0.1}),
+            std::make_pair(Engine::Vect2f{0.4,  -0.1}, Engine::Vect2f{0.4, 0})
+        };
+    case FLIPPER :
+        lines = {
+            std::make_pair(Engine::Vect2f{0,0}, Engine::Vect2f{0.15,-0.15}),
+            std::make_pair(Engine::Vect2f{0.15,-0.15}, Engine::Vect2f{0,-0.3}),
+            std::make_pair(Engine::Vect2f{0,-0.3}, Engine::Vect2f{0.5, -0.2}),
+            std::make_pair(Engine::Vect2f{0.5, -0.2}, Engine::Vect2f{1,-0.3}),
+            std::make_pair(Engine::Vect2f{1,-0.3}, Engine::Vect2f{0.85,-0.15}),
+            std::make_pair(Engine::Vect2f{0.85,-0.15}, Engine::Vect2f{1,0}),
+            std::make_pair(Engine::Vect2f{1,0}, Engine::Vect2f{0.5,-0.2}),
+            std::make_pair(Engine::Vect2f{0.5,-0.2}, Engine::Vect2f{0,0}),
         };
         break;
     
