@@ -53,11 +53,6 @@ public:
     void setPlayerLane(size_t lane);
 
     /**
-     * @brief Draw enemy at a its position in line
-     */
-    void drawEnemy(const Engine::Output& out, const Enemy& e) const;
-
-    /**
      * @brief Get the two lines associated to a lane number
      * 
      * @param lane Number of the lane
