@@ -77,6 +77,26 @@ static const std::vector<float> baseFlat{
      1
 };
 
+static const std::vector<Vect2f> baseStar{
+    Vect2f{ 0,      -0.75},
+    Vect2f{-0.375,  -1},
+    Vect2f{-0.5625, -0.5625},
+    Vect2f{-1,      -0.375},
+    Vect2f{-0.75,    0},
+    Vect2f{-1,       0.375},
+    Vect2f{-0.5625,  0.5625},
+    Vect2f{-0.375,   1},
+    Vect2f{ 0,       0.75},
+    Vect2f{ 0.375,   1},
+    Vect2f{ 0.5625,  0.5625},
+    Vect2f{ 1,       0.375},
+    Vect2f{ 0.75,    0},
+    Vect2f{ 1,      -0.375},
+    Vect2f{ 0.5625, -0.5625},
+    Vect2f{ 0.375,  -1},
+    Vect2f{ 0,      -0.75}
+};
+
 std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
 {
     std::vector<Line2f> lines;
@@ -158,6 +178,14 @@ std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
                 lines.emplace_back(std::make_pair(
                     Vect2f{val * 1.5f, -12.0f},
                     Vect2f{val * 2.5f, 1.7f}
+                ));
+            break;
+
+        case STAR:
+            for(const auto& pt : baseStar)
+                lines.emplace_back(std::make_pair(
+                    (pt + Vect2f{0, 3.0f}) * 1.2f,
+                    Vect2f{pt.x * 1.6f, pt.y * 1.9f}
                 ));
             break;
     }

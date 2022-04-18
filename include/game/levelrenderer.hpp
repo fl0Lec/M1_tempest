@@ -28,6 +28,7 @@ enum LevelType
     TRIANGLE,
     CIRCLE,
     FLAT,
+    STAR,
 };
 
 /**
