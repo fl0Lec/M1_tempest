@@ -18,6 +18,45 @@ using namespace Engine;
 const Color LevelRenderer::DEFAULT_COLOR = Color::BLUE;
 const Color LevelRenderer::PLAYER_COLOR  = Color::YELLOW;
 
+static const std::vector<Vect2f> baseTriangle{
+    Vect2f{-1.75, -2},
+    Vect2f{-1.75, -1},
+    Vect2f{-1.25, -1},
+    Vect2f{-1.25,  0},
+    Vect2f{-0.75,  0},
+    Vect2f{-0.75,  1},
+    Vect2f{-0.25,  1},
+    Vect2f{-0.25,  2},
+    Vect2f{ 0.25,  2},
+    Vect2f{ 0.25,  1},
+    Vect2f{ 0.75,  1},
+    Vect2f{ 0.75,  0},
+    Vect2f{ 1.25,  0},
+    Vect2f{ 1.25,  -1},
+    Vect2f{ 1.75,  -1},
+    Vect2f{ 1.75,  -2}
+};
+
+static const std::vector<Vect2f> baseCircle{
+    Vect2f{ 0,      -1},
+    Vect2f{-0.4375, -0.9375},
+    Vect2f{-0.75,   -0.75},
+    Vect2f{-0.9375, -0.4375},
+    Vect2f{-1,       0},
+    Vect2f{-0.9375,  0.4375},
+    Vect2f{-0.75,    0.75},
+    Vect2f{-0.4375,  0.9375},
+    Vect2f{ 0,       1},
+    Vect2f{ 0.4375,  0.9375},
+    Vect2f{ 0.75,    0.75},
+    Vect2f{ 0.9375,  0.4375},
+    Vect2f{ 1,       0},
+    Vect2f{ 0.9375, -0.4375},
+    Vect2f{ 0.75,   -0.75},
+    Vect2f{ 0.4375, -0.9375},
+    Vect2f{ 0,      -1}
+};
+
 std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
 {
     std::vector<Line2f> lines;
@@ -79,30 +118,19 @@ std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
             break;
 
         case TRIANGLE:
-            std::vector<Vect2f> base{
-                Vect2f{-1.75, -2},
-                Vect2f{-1.75, -1},
-                Vect2f{-1.25, -1},
-                Vect2f{-1.25,  0},
-                Vect2f{-0.75,  0},
-                Vect2f{-0.75,  1},
-                Vect2f{-0.25,  1},
-                Vect2f{-0.25,  2},
-                Vect2f{ 0.25,  2},
-                Vect2f{ 0.25,  1},
-                Vect2f{ 0.75,  1},
-                Vect2f{ 0.75,  0},
-                Vect2f{ 1.25,  0},
-                Vect2f{ 1.25,  -1},
-                Vect2f{ 1.75,  -1}, 
-                Vect2f{ 1.75,  -2}
-            };
-            for(const auto& pt : base)
+            for(const auto& pt : baseTriangle)
                 lines.emplace_back(std::make_pair(
                     pt - Vect2f{0, 10.0f},
                     Vect2f{pt.x * 1.8f, pt.y}
                 ));
+            break;
 
+        case CIRCLE:
+            for(const auto& pt : baseCircle)
+                lines.emplace_back(std::make_pair(
+                    pt + Vect2f{0, 8.0f},
+                    Vect2f{pt.x * 1.6f, pt.y * 1.9f}
+                ));
             break;
     }
 

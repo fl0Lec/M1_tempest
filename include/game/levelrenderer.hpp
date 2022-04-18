@@ -26,6 +26,7 @@ enum LevelType
     PLUS,
     SQUARE,
     TRIANGLE,
+    CIRCLE,
 };
 
 /**
