@@ -8,6 +8,7 @@
 #include <utility>
 #include <vector>
 
+#include "color.hpp"
 #include "game.hpp"
 #include "gamescene.hpp"
 #include "levelbutton.hpp"
@@ -23,13 +24,13 @@ ChooseLevelScene::ChooseLevelScene(unsigned int playerId)
     m_objects.emplace_back(std::shared_ptr<TextComponent>{
         new TextComponent{
             Game::instance()->center() - Vect2f{0, Game::instance()->height() / 4.0f},
-            "Player " + std::to_string(playerId)
+            "Player " + std::to_string(playerId), Color::BLUE
         }
     });
     m_objects.emplace_back(std::shared_ptr<TextComponent>{
         new TextComponent{
             Game::instance()->center() - Vect2f{0, Game::instance()->height() / 10.0f},
-            "Choose your level"
+            "Choose your level", Color::MAGENTA
         }
     });
 
