@@ -43,7 +43,7 @@ void GameScene::createEnemy(EnemyShape type)
     //TO UPGRADE where enemy (random)
     static int lane = 0;
     std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
-            lane++ % m_level->laneCount(), 0.5, EnemyShape::SQUARE_MIDDLE, *m_level);
+            lane++ % m_level->laneCount(), 0.5, type, *m_level);
 
     m_enemies.emplace_back(enemy);
     m_objects.emplace_back(enemy);
@@ -77,14 +77,15 @@ void GameScene::update(const Engine::Input &in)
     checkMissiles();
 
     // TODO Real spawn system
-    static int count = 0;
+    static int count = 0, type = 0;
     count += 1;
     if(count >= 10)
     {
         count = 0;
+        type += 1;
 
         // TODO Remove shape
-        createEnemy(EnemyShape::SQUARE_MIDDLE);
+        createEnemy(static_cast<EnemyShape>(type % (EnemyShape::SPIKER+1)));
     }
 }
 
