@@ -36,7 +36,7 @@ ChooseLevelScene::ChooseLevelScene(unsigned int playerId)
 
     const std::vector<LevelType> levels{
         LevelType::PLUS, LevelType::SQUARE, LevelType::TRIANGLE,
-        LevelType::CIRCLE
+        LevelType::CIRCLE, LevelType::FLAT
     };
 
     const size_t baseY = 3 * Game::instance()->height() / 4;

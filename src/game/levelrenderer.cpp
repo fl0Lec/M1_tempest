@@ -57,6 +57,26 @@ static const std::vector<Vect2f> baseCircle{
     Vect2f{ 0,      -1}
 };
 
+static const std::vector<float> baseFlat{
+    -1,
+    -0.875,
+    -0.75,
+    -0.625,
+    -0.5,
+    -0.375,
+    -0.25,
+    -0.125,
+     0,
+     0.125,
+     0.25,
+     0.375,
+     0.5,
+     0.625,
+     0.75,
+     0.875,
+     1
+};
+
 std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
 {
     std::vector<Line2f> lines;
@@ -130,6 +150,14 @@ std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
                 lines.emplace_back(std::make_pair(
                     pt + Vect2f{0, 8.0f},
                     Vect2f{pt.x * 1.6f, pt.y * 1.9f}
+                ));
+            break;
+
+        case FLAT:
+            for(const auto& val : baseFlat)
+                lines.emplace_back(std::make_pair(
+                    Vect2f{val * 1.5f, -12.0f},
+                    Vect2f{val * 2.5f, 1.7f}
                 ));
             break;
     }

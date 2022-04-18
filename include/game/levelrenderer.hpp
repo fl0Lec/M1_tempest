@@ -27,6 +27,7 @@ enum LevelType
     SQUARE,
     TRIANGLE,
     CIRCLE,
+    FLAT,
 };
 
 /**
