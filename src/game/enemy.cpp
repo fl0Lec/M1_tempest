@@ -1,11 +1,10 @@
 
 #include "enemy.hpp"
 
+#include "color.hpp"
 #include "levelrenderer.hpp"
 
 using namespace Engine;
-
-const Engine::Color Enemy::ENEMY_COLOR = Engine::Color::RED;
 
 Enemy::Enemy(uint line, double speed, EnemyShape type,
     const LevelRenderer& level)
@@ -119,9 +118,22 @@ void Enemy::render(const Output &out) const
         line.second = Vect2f::homothetie(h, line.second, middle);
     }
 
-    out.setColor(Enemy::ENEMY_COLOR);
+    out.setColor(enemyColor(m_type));
     for(Line2f& line : lines)
     {
         out.drawLine(line);
+    }
+}
+
+Color Enemy::enemyColor(EnemyShape s)
+{
+    switch(s)
+    {
+        case SQUARE_MIDDLE:
+            return Color::MAGENTA;
+        case FLIPPER:
+            return Color::RED;
+        case SPIKER:
+            return Color::GREEN;
     }
 }

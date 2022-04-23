@@ -43,8 +43,11 @@ public :
 
     virtual void render(const Engine::Output &out) const override;
 
-    static const Engine::Color ENEMY_COLOR;
     static constexpr unsigned int GIVEN_SCORE = 10;
+
+protected:
+    // TODO Get color from polymorphism instead (just a const used in render)
+    static Engine::Color enemyColor(EnemyShape s);
 
 private:
     double m_speed;

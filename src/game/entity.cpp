@@ -16,7 +16,6 @@ void Entity::setLine(uint newLine)
     m_line = newLine;
 }
 
-
 double Entity::position() const
 {
     return m_position;
