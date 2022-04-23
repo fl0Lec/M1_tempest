@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 
+#include "chooselevelscene.hpp"
 #include "enemy.hpp"
 #include "game.hpp"
 #include "missile.hpp"
@@ -75,6 +76,17 @@ void GameScene::update(const Engine::Input &in)
     
     checkEnemies();
     checkMissiles();
+
+    if(!m_lost && in.isKeyReleased(Keycode::KEY_F))
+    {
+        lose();
+    }
+    else if(m_lost && (in.isKeyPressed(KEY_SPACE) || in.isKeyReleased(KEY_ENTER)))
+    {
+        Game::instance()->setCurrentScene(
+            std::shared_ptr<Scene>{new ChooseLevelScene{0}}
+        );
+    }
 
     // TODO Real spawn system
     static int count = 0, type = 0;
@@ -148,5 +160,18 @@ void GameScene::checkMissiles()
         remove(missile);
         m_missiles.erase(std::remove(m_missiles.begin(), m_missiles.end(), missile),
             m_missiles.end());
+    }
+}
+
+void GameScene::lose()
+{
+    if(!m_lost)
+    {
+        m_lost = true;
+
+        remove(m_player);
+        m_objects.emplace_back(std::shared_ptr<TextComponent>{
+            new TextComponent{Game::instance()->center(), "GAME OVER", Color::RED}
+        });
     }
 }

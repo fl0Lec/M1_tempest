@@ -43,6 +43,9 @@ protected:
     /** Check the progression of missiles for any progression */
     void checkMissiles();
 
+    /** Called when the player losses the game */
+    void lose();
+
 private:
     std::shared_ptr<LevelRenderer> m_level;
 
@@ -54,6 +57,8 @@ private:
 
     unsigned int m_score;
     std::shared_ptr<Engine::TextComponent> m_scoreText;
+
+    bool m_lost = false;
 };
 
 #endif
