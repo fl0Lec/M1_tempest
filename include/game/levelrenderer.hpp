@@ -13,23 +13,11 @@
 #include <vector>
 
 #include "color.hpp"
-#include "output.hpp"
-#include "vect2.hpp"
 #include "enemy.hpp"
 #include "geometry.hpp"
-
-/**
- * @brief Describes the different possible levels
- */
-enum LevelType
-{
-    PLUS,
-    SQUARE,
-    TRIANGLE,
-    CIRCLE,
-    FLAT,
-    STAR,
-};
+#include "levels.hpp"
+#include "output.hpp"
+#include "vect2.hpp"
 
 /**
  * @brief Render the background of a level
@@ -67,11 +55,6 @@ public:
     virtual void update(const Engine::Input &in) override;
 
 protected:
-    /**
-     * @brief Computes the structure of a level based on its type
-     */
-    static std::vector<Engine::Line2f> levelBasePoints(LevelType type);
-
     /**
      * @brief Normalize a line to fit in the window
      */

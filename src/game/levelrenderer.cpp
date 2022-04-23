@@ -10,6 +10,7 @@
 #include "enemy.hpp"
 #include "game.hpp"
 #include "input.hpp"
+#include "levels.hpp"
 #include "output.hpp"
 #include "vect2.hpp"
 
@@ -18,180 +19,6 @@ using namespace Engine;
 const Color LevelRenderer::DEFAULT_COLOR = Color::BLUE;
 const Color LevelRenderer::PLAYER_COLOR  = Color::YELLOW;
 
-static const std::vector<Vect2f> baseTriangle{
-    Vect2f{-1.75, -2},
-    Vect2f{-1.75, -1},
-    Vect2f{-1.25, -1},
-    Vect2f{-1.25,  0},
-    Vect2f{-0.75,  0},
-    Vect2f{-0.75,  1},
-    Vect2f{-0.25,  1},
-    Vect2f{-0.25,  2},
-    Vect2f{ 0.25,  2},
-    Vect2f{ 0.25,  1},
-    Vect2f{ 0.75,  1},
-    Vect2f{ 0.75,  0},
-    Vect2f{ 1.25,  0},
-    Vect2f{ 1.25,  -1},
-    Vect2f{ 1.75,  -1},
-    Vect2f{ 1.75,  -2}
-};
-
-static const std::vector<Vect2f> baseCircle{
-    Vect2f{ 0,      -1},
-    Vect2f{-0.4375, -0.9375},
-    Vect2f{-0.75,   -0.75},
-    Vect2f{-0.9375, -0.4375},
-    Vect2f{-1,       0},
-    Vect2f{-0.9375,  0.4375},
-    Vect2f{-0.75,    0.75},
-    Vect2f{-0.4375,  0.9375},
-    Vect2f{ 0,       1},
-    Vect2f{ 0.4375,  0.9375},
-    Vect2f{ 0.75,    0.75},
-    Vect2f{ 0.9375,  0.4375},
-    Vect2f{ 1,       0},
-    Vect2f{ 0.9375, -0.4375},
-    Vect2f{ 0.75,   -0.75},
-    Vect2f{ 0.4375, -0.9375},
-    Vect2f{ 0,      -1}
-};
-
-static const std::vector<float> baseFlat{
-    -1,
-    -0.875,
-    -0.75,
-    -0.625,
-    -0.5,
-    -0.375,
-    -0.25,
-    -0.125,
-     0,
-     0.125,
-     0.25,
-     0.375,
-     0.5,
-     0.625,
-     0.75,
-     0.875,
-     1
-};
-
-static const std::vector<Vect2f> baseStar{
-    Vect2f{ 0,      -0.75},
-    Vect2f{-0.375,  -1},
-    Vect2f{-0.5625, -0.5625},
-    Vect2f{-1,      -0.375},
-    Vect2f{-0.75,    0},
-    Vect2f{-1,       0.375},
-    Vect2f{-0.5625,  0.5625},
-    Vect2f{-0.375,   1},
-    Vect2f{ 0,       0.75},
-    Vect2f{ 0.375,   1},
-    Vect2f{ 0.5625,  0.5625},
-    Vect2f{ 1,       0.375},
-    Vect2f{ 0.75,    0},
-    Vect2f{ 1,      -0.375},
-    Vect2f{ 0.5625, -0.5625},
-    Vect2f{ 0.375,  -1},
-    Vect2f{ 0,      -0.75}
-};
-
-std::vector<Line2f> LevelRenderer::levelBasePoints(LevelType type)
-{
-    std::vector<Line2f> lines;
-
-    switch(type)
-    {
-        case PLUS:
-            lines = std::vector<std::pair<Vect2f, Vect2f>>{
-                std::make_pair(Vect2f{ 0,    1},   Vect2f{ 0,  2}),
-                std::make_pair(Vect2f{ 0.5,  1},   Vect2f{ 1,  2}),
-                std::make_pair(Vect2f{ 0.5,  0.5}, Vect2f{ 1,  1}),
-                std::make_pair(Vect2f{ 1,    0.5}, Vect2f{ 2,  1}),
-                std::make_pair(Vect2f{ 1,    0},   Vect2f{ 2,  0}),
-                std::make_pair(Vect2f{ 1,   -0.5}, Vect2f{ 2, -1}),
-                std::make_pair(Vect2f{ 0.5, -0.5}, Vect2f{ 1, -1}),
-                std::make_pair(Vect2f{ 0.5, -1},   Vect2f{ 1, -2}),
-                std::make_pair(Vect2f{ 0,   -1},   Vect2f{ 0, -2}),
-                std::make_pair(Vect2f{-0.5, -1},   Vect2f{-1, -2}),
-                std::make_pair(Vect2f{-0.5, -0.5}, Vect2f{-1, -1}),
-                std::make_pair(Vect2f{-1,   -0.5}, Vect2f{-2, -1}),
-                std::make_pair(Vect2f{-1,    0},   Vect2f{-2,  0}),
-                std::make_pair(Vect2f{-1,    0.5}, Vect2f{-2,  1}),
-                std::make_pair(Vect2f{-0.5,  0.5}, Vect2f{-1,  1}),
-                std::make_pair(Vect2f{-0.5,  1},   Vect2f{-1,  2}),
-                std::make_pair(Vect2f{ 0,    1},   Vect2f{ 0,  2})
-            };
-            for(auto& line : lines)
-            {
-                line.first += Vect2f{0, 1.5};
-                line.first *= 3.0f;
-            }
-            break;
-        
-        case SQUARE:
-            lines = std::vector<std::pair<Vect2f, Vect2f>>{
-                std::make_pair(Vect2f{ 0,    1},    Vect2f{ 0,  2}),
-                std::make_pair(Vect2f{ 0.25, 1},    Vect2f{ 1,  2}),
-                std::make_pair(Vect2f{ 0.5,  1},    Vect2f{ 2,  2}),
-                std::make_pair(Vect2f{ 0.5,  0.75}, Vect2f{ 2,  1}),
-                std::make_pair(Vect2f{ 0.5,  0.5},  Vect2f{ 2,  0}),
-                std::make_pair(Vect2f{ 0.5,  0.25}, Vect2f{ 2, -1}),
-                std::make_pair(Vect2f{ 0.5,  0},    Vect2f{ 2, -2}),
-                std::make_pair(Vect2f{ 0.25, 0},    Vect2f{ 1, -2}),
-                std::make_pair(Vect2f{ 0,    0},    Vect2f{ 0, -2}),
-                std::make_pair(Vect2f{-0.25, 0},    Vect2f{-1, -2}),
-                std::make_pair(Vect2f{-0.5,  0},    Vect2f{-2, -2}),
-                std::make_pair(Vect2f{-0.5,  0.25}, Vect2f{-2, -1}),
-                std::make_pair(Vect2f{-0.5,  0.5},  Vect2f{-2,  0}),
-                std::make_pair(Vect2f{-0.5,  0.75}, Vect2f{-2,  1}),
-                std::make_pair(Vect2f{-0.5,  1},    Vect2f{-2,  2}),
-                std::make_pair(Vect2f{-0.25, 1},    Vect2f{-1,  2}),
-                std::make_pair(Vect2f{ 0,    1},    Vect2f{ 0,  2})
-            };
-            for(auto& line : lines)
-            {
-                line.first += Vect2f{0, 1.5};
-                line.first *= 4.0f;
-            }
-            break;
-
-        case TRIANGLE:
-            for(const auto& pt : baseTriangle)
-                lines.emplace_back(std::make_pair(
-                    pt - Vect2f{0, 10.0f},
-                    Vect2f{pt.x * 1.8f, pt.y}
-                ));
-            break;
-
-        case CIRCLE:
-            for(const auto& pt : baseCircle)
-                lines.emplace_back(std::make_pair(
-                    pt + Vect2f{0, 8.0f},
-                    Vect2f{pt.x * 1.6f, pt.y * 1.9f}
-                ));
-            break;
-
-        case FLAT:
-            for(const auto& val : baseFlat)
-                lines.emplace_back(std::make_pair(
-                    Vect2f{val * 1.5f, -12.0f},
-                    Vect2f{val * 2.5f, 1.7f}
-                ));
-            break;
-
-        case STAR:
-            for(const auto& pt : baseStar)
-                lines.emplace_back(std::make_pair(
-                    (pt + Vect2f{0, 3.0f}) * 1.2f,
-                    Vect2f{pt.x * 1.6f, pt.y * 1.9f}
-                ));
-            break;
-    }
-
-    return lines;
-}
 
 Line2f LevelRenderer::normalizeLine(Line2f line) const
 {
@@ -206,7 +33,7 @@ Line2f LevelRenderer::normalizeLine(Line2f line) const
 LevelRenderer::LevelRenderer(const Vect2f& center, size_t size, LevelType type)
     : m_type(type), m_center(center), m_size(size)
 {
-    const auto points = levelBasePoints(type);
+    const auto points = Level::levelBasePoints(type);
     m_laneCount = points.size() - 1;
 
     Line2f last = normalizeLine(points.front());
