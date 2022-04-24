@@ -50,6 +50,15 @@ void GameScene::createEnemy(EnemyShape type)
     m_objects.emplace_back(enemy);
 }
 
+std::shared_ptr<Enemy> GameScene::createEnemy(EnemyShape type, int lane, double position)
+{
+    std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
+            lane % m_level->laneCount(), 0.5, type, *m_level);
+    enemy->m_position=position;
+
+    return enemy;
+}
+
 void GameScene::addMissile(const std::shared_ptr<Missile>& missile)
 {
     m_newMissiles.emplace_back(missile);
@@ -104,12 +113,19 @@ void GameScene::update(const Engine::Input &in)
 void GameScene::checkEnemies()
 {
     std::vector<std::shared_ptr<Entity>> removed;
+    std::vector<std::shared_ptr<Enemy>> addedEnemies;
     for(const auto& enemy : m_enemies)
     {
         if(enemy->position() >= 100)
         {
             // TODO Do appropiate thing according to game rules
-            
+            if (enemy->line()==m_player->line())
+                lose();
+            if (enemy->type()==SPIKER)
+            {
+                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1)%m_level->laneCount(), 90));
+                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()==0?m_level->laneCount()-1:enemy->line()-1), 90));
+            }
             removed.emplace_back(enemy);
         }
     }
@@ -119,11 +135,16 @@ void GameScene::checkEnemies()
         m_enemies.erase(std::remove(m_enemies.begin(), m_enemies.end(), enemy),
             m_enemies.end());
     }
+    for (auto& enemy : addedEnemies)
+    {
+        m_objects.emplace_back(enemy);
+        m_enemies.emplace_back(enemy);
+    }
 }
 
 void GameScene::checkMissiles()
 {
-    std::vector<std::shared_ptr<Enemy>> removedEnemies;
+    std::vector<std::shared_ptr<Enemy>> removedEnemies, addedEnemies;
     std::vector<std::shared_ptr<Missile>> removedMissiles;
     for(const auto& missile : m_missiles)
     {
@@ -139,6 +160,11 @@ void GameScene::checkMissiles()
                     && enemy->position() > missile->position() - Missile::WIDTH / 2
                     && enemy->position() < missile->position() + Missile::WIDTH / 2)
                 {
+                    if (enemy->type()==SPIKER)
+                    {
+                        addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1)%m_level->laneCount(), enemy->position()));
+                        addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()==0?m_level->laneCount()-1:enemy->line()-1), enemy->position()));
+                    }
                     removedEnemies.emplace_back(enemy);
                     removedMissiles.emplace_back(missile);
 
@@ -160,6 +186,11 @@ void GameScene::checkMissiles()
         remove(missile);
         m_missiles.erase(std::remove(m_missiles.begin(), m_missiles.end(), missile),
             m_missiles.end());
+    }
+    for (auto& enemy : addedEnemies)
+    {
+        m_objects.emplace_back(enemy);
+        m_enemies.emplace_back(enemy);
     }
 }
 

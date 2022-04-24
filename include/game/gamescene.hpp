@@ -28,6 +28,7 @@ public:
     size_t nbLine() const;
 
     void createEnemy(EnemyShape type);
+    std::shared_ptr<Enemy> createEnemy(EnemyShape type, int lane, double position);
 
     /**
      * @brief Add a missile to the scene

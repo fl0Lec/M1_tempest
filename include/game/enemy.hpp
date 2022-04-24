@@ -54,6 +54,8 @@ private:
     EnemyShape m_type;
     
     const LevelRenderer& m_level;
+    
+    friend class GameScene;
 
 };
 
