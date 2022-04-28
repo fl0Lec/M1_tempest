@@ -13,6 +13,8 @@
 #include "scene.hpp"
 #include "textcomponent.hpp"
 
+#define E_BEFORE_INCREASE_SPEED 20
+
 using namespace Engine;
 
 GameScene::GameScene(LevelType level)
@@ -99,14 +101,22 @@ void GameScene::update(const Engine::Input &in)
     }
 
     // TODO Real spawn system
-    static int count = 0;
+    static int count = 0, count_before_increase = E_BEFORE_INCREASE_SPEED, speed_gen = 50;
     count += 1;
-    if((count > 20) && (std::rand()%200-count>0))
+    if((count > speed_gen) && (std::rand()%300-count>0))
     {
         count = 0;
+        if (count_before_increase)
+            count_before_increase--;
+        else 
+        {
+            count_before_increase=E_BEFORE_INCREASE_SPEED;
+            speed_gen--;
+
+
+        }
         int type = std::rand() % (EnemyShape::SPIKER+1);
 
-        // TODO Remove shape
         createEnemy(static_cast<EnemyShape>(type));
     }
 }
@@ -119,13 +129,12 @@ void GameScene::checkEnemies()
     {
         if(enemy->position() >= 100)
         {
-            // TODO Do appropiate thing according to game rules
             if (enemy->line()==m_player->line())
                 lose();
             if (enemy->type()==SPIKER)
             {
-                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1)%m_level->laneCount(), 95));
-                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()==0?m_level->laneCount()-1:enemy->line()-1), 95));
+                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1)%m_level->laneCount(), 100));
+                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()==0?m_level->laneCount()-1:enemy->line()-1), 100));
             }
             removed.emplace_back(enemy);
         }

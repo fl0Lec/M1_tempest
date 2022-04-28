@@ -15,7 +15,8 @@ Enemy::Enemy(uint line, EnemyShape type,
     switch (type)
     {
     case SQUARE_MIDDLE:
-        m_speed = 0.2;
+        m_speed = 0;
+        m_position=20+std::rand()%60;
         break;
     default:
         m_speed = 0.5;
@@ -41,9 +42,9 @@ unsigned int Enemy::givenScore() const
 void Enemy::update([[maybe_unused]] const Input &in)
 {
     m_position += m_speed;
-    if (m_type==FLIPPER)
+    if (m_type==FLIPPER || m_type==SQUARE_MIDDLE)
     {
-        if ((++m_changeLane>50) && (std::rand()%200-m_changeLane<0))
+        if ((++m_changeLane>50) && (std::rand()%400-m_changeLane<0))
             {
                 m_changeLane=0;
                 m_line= (m_line+(std::rand()%2?1:-1)) % m_level.laneCount();
