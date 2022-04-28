@@ -36,7 +36,17 @@ bool Enemy::asReachEnd() const
 
 unsigned int Enemy::givenScore() const
 {
-    return GIVEN_SCORE;
+    switch (m_type)
+    {
+    case FLIPPER:
+        return 20;
+    case SPIKER:
+        return 25;
+    case SQUARE_MIDDLE:
+        return 5;
+    default:
+        return 0;
+    }
 }
 
 void Enemy::update([[maybe_unused]] const Input &in)
