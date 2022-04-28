@@ -33,7 +33,7 @@ void Enemy::update([[maybe_unused]] const Input &in)
     m_position += m_speed;
     if (m_type==FLIPPER)
     {
-        if (++m_changeLane>50)
+        if ((++m_changeLane>50) && (std::rand()%200-m_changeLane>0))
             {
                 m_changeLane=0;
                 m_line= (m_line+(std::rand()%2?1:-1)) % m_level.laneCount();
