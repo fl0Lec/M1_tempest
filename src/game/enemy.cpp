@@ -8,10 +8,20 @@
 
 using namespace Engine;
 
-Enemy::Enemy(uint line, double speed, EnemyShape type,
+Enemy::Enemy(uint line, EnemyShape type,
     const LevelRenderer& level)
-    : Entity{line, 0}, m_speed(speed), m_changeLane(0), m_type(type), m_level(level)
-{}
+    : Entity{line, 0}, m_changeLane(0), m_type(type), m_level(level)
+{
+    switch (type)
+    {
+    case SQUARE_MIDDLE:
+        m_speed = 0.2;
+        break;
+    default:
+        m_speed = 0.5;
+        break;
+    }
+}
 
 EnemyShape Enemy::type() const 
 {
@@ -33,7 +43,7 @@ void Enemy::update([[maybe_unused]] const Input &in)
     m_position += m_speed;
     if (m_type==FLIPPER)
     {
-        if ((++m_changeLane>50) && (std::rand()%200-m_changeLane>0))
+        if ((++m_changeLane>50) && (std::rand()%200-m_changeLane<0))
             {
                 m_changeLane=0;
                 m_line= (m_line+(std::rand()%2?1:-1)) % m_level.laneCount();

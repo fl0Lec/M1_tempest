@@ -22,7 +22,7 @@ public :
      * @param speed speed of the element in the line
      * @param type 
      */
-    Enemy(uint line, double speed, EnemyShape type, const LevelRenderer& level);
+    Enemy(uint line, EnemyShape type, const LevelRenderer& level);
 
     EnemyShape type() const;
 

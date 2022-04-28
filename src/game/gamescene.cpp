@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <cstdlib>
 
 #include "chooselevelscene.hpp"
 #include "enemy.hpp"
@@ -42,9 +43,9 @@ GameScene::GameScene(LevelType level)
 void GameScene::createEnemy(EnemyShape type)
 {
     //TO UPGRADE where enemy (random)
-    static int lane = 0;
+    int lane = std::rand()%m_level->laneCount();
     std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
-            lane++ % m_level->laneCount(), 0.5, type, *m_level);
+            lane++ % m_level->laneCount(), type, *m_level);
 
     m_enemies.emplace_back(enemy);
     m_objects.emplace_back(enemy);
@@ -53,7 +54,7 @@ void GameScene::createEnemy(EnemyShape type)
 std::shared_ptr<Enemy> GameScene::createEnemy(EnemyShape type, int lane, double position)
 {
     std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
-            lane % m_level->laneCount(), 0.5, type, *m_level);
+            lane % m_level->laneCount(), type, *m_level);
     enemy->m_position=position;
 
     return enemy;
@@ -98,15 +99,15 @@ void GameScene::update(const Engine::Input &in)
     }
 
     // TODO Real spawn system
-    static int count = 0, type = 0;
+    static int count = 0;
     count += 1;
-    if(count >= 10)
+    if((count > 20) && (std::rand()%200-count>0))
     {
         count = 0;
-        type += 1;
+        int type = std::rand() % (EnemyShape::SPIKER+1);
 
         // TODO Remove shape
-        createEnemy(static_cast<EnemyShape>(type % (EnemyShape::SPIKER+1)));
+        createEnemy(static_cast<EnemyShape>(type));
     }
 }
 
