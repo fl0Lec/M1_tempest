@@ -51,6 +51,7 @@ protected:
 
 private:
     double m_speed;
+    short m_changeLane;
     EnemyShape m_type;
     
     const LevelRenderer& m_level;

@@ -4,11 +4,13 @@
 #include "color.hpp"
 #include "levelrenderer.hpp"
 
+#include <cstdlib>
+
 using namespace Engine;
 
 Enemy::Enemy(uint line, double speed, EnemyShape type,
     const LevelRenderer& level)
-    : Entity{line, 0}, m_speed(speed), m_type(type), m_level(level)
+    : Entity{line, 0}, m_speed(speed), m_changeLane(0), m_type(type), m_level(level)
 {}
 
 EnemyShape Enemy::type() const 
@@ -29,6 +31,15 @@ unsigned int Enemy::givenScore() const
 void Enemy::update([[maybe_unused]] const Input &in)
 {
     m_position += m_speed;
+    if (m_type==FLIPPER)
+    {
+        if (++m_changeLane>50)
+            {
+                m_changeLane=0;
+                m_line= (m_line+(std::rand()%2?1:-1)) % m_level.laneCount();
+            }
+
+    }
 }
 
 std::vector<Line2f> EnemyBasePoint(EnemyShape type)
@@ -135,5 +146,7 @@ Color Enemy::enemyColor(EnemyShape s)
             return Color::RED;
         case SPIKER:
             return Color::GREEN;
+        default :
+            return Color::BLACK;
     }
 }

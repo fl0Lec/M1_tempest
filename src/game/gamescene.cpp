@@ -123,8 +123,8 @@ void GameScene::checkEnemies()
                 lose();
             if (enemy->type()==SPIKER)
             {
-                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1)%m_level->laneCount(), 90));
-                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()==0?m_level->laneCount()-1:enemy->line()-1), 90));
+                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1)%m_level->laneCount(), 95));
+                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()==0?m_level->laneCount()-1:enemy->line()-1), 95));
             }
             removed.emplace_back(enemy);
         }
