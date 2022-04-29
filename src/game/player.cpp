@@ -40,6 +40,7 @@ void Player::update(const Engine::Input &in)
         && (in.isKeyPressed(Engine::KEY_D) || in.isKeyPressed(Engine::KEY_RIGHT)))
     {
         m_line += 1;
+        m_line %= m_level.laneCount();
 
         m_level.setPlayerLane(m_line % m_level.laneCount());
         m_moveCooldown = MOVE_COOLDOWN;
