@@ -29,7 +29,9 @@ GameScene::GameScene(LevelType level)
             Game::instance()->center()
                 + Vect2f{0, Game::instance()->height() * 2.0f / 5.0f},
             "Score: 0", Color::BLUE
-        }}
+        }},
+        m_gen{m_rd()}, m_randSpawn{0, 300},
+        m_randEnemy{EnemyShape::SQUARE_MIDDLE, EnemyShape::SPIKER}
 {
     // Insert level first to be in background, if not we should render it manually
     m_objects.emplace_back(m_level);
@@ -99,19 +101,18 @@ void GameScene::update(const Engine::Input &in)
     }
 
     m_spawnCounter += 1;
-    if((m_spawnCounter > m_speedGen) && (std::rand() % 300 - m_spawnCounter > 0))
+    if((m_spawnCounter > m_speedGen) && (m_randSpawn(m_gen) - m_spawnCounter > 0))
     {
         m_spawnCounter = 0;
         if (m_countBeforeIncrease)
             m_countBeforeIncrease--;
-        else 
+        else
         {
             m_countBeforeIncrease = COUNT_BEFORE_INCREASE_SPEED;
             m_speedGen--;
         }
-        int type = std::rand() % (EnemyShape::SPIKER+1);
 
-        createEnemy(static_cast<EnemyShape>(type));
+        createEnemy(static_cast<EnemyShape>(m_randEnemy(m_gen)));
     }
 }
 

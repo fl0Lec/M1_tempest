@@ -9,6 +9,7 @@
 #include "scene.hpp"
 
 #include <memory>
+#include <random>
 #include <vector>
 
 #include "entity.hpp"
@@ -64,6 +65,11 @@ private:
     const size_t COUNT_BEFORE_INCREASE_SPEED = 20;
     size_t m_countBeforeIncrease = COUNT_BEFORE_INCREASE_SPEED;
     size_t m_speedGen = 50;
+
+    // https://en.cppreference.com/w/cpp/numeric/random/uniform_int_distribution
+    std::random_device m_rd;
+    std::mt19937 m_gen;
+    std::uniform_int_distribution<> m_randSpawn, m_randEnemy;
 
     bool m_lost = false;
 };
