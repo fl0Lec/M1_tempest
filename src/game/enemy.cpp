@@ -55,7 +55,7 @@ void Enemy::update([[maybe_unused]] const Input &in)
     m_position += m_speed;
     if(m_type==FLIPPER || m_type==SQUARE_MIDDLE)
     {
-        if(++m_changeLane > 50 && std::rand()%400 - m_changeLane < 0)
+        if(++m_changeLane > 50 && m_position<85 && std::rand()%400 - m_changeLane < 0)
         {
             m_changeLane=0;
             uint randomMove = std::rand() % 2 ? 1 : m_level.laneCount()-1;
