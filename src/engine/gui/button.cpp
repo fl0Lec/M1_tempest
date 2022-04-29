@@ -103,7 +103,7 @@ void Button::update(const Input &in)
         if(m_onHover)
             m_onHover(thisShared());
     }
-    else if(m_isHovered)
+    else if(!mouseInside && m_isHovered)
         m_isHovered = false;
 
     // Manage pressed status and send click signal if released inside button
