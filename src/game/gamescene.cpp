@@ -7,6 +7,7 @@
 
 #include "chooselevelscene.hpp"
 #include "enemy.hpp"
+#include "entity.hpp"
 #include "game.hpp"
 #include "missile.hpp"
 #include "player.hpp"
@@ -57,7 +58,7 @@ std::shared_ptr<Enemy> GameScene::createEnemy(EnemyShape type, int lane, double 
 {
     std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
             lane % m_level->laneCount(), type, *m_level);
-    enemy->m_position=position;
+    enemy->m_position = position;
 
     return enemy;
 }
@@ -122,14 +123,14 @@ void GameScene::checkEnemies()
     std::vector<std::shared_ptr<Enemy>> addedEnemies;
     for(const auto& enemy : m_enemies)
     {
-        if(enemy->position() >= 100)
+        if(enemy->position() >= Entity::MAX_POSITION)
         {
             if (enemy->line()==m_player->line())
                 lose();
             if (enemy->type()==SPIKER)
             {
-                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1)%m_level->laneCount(), 100));
-                addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()==0?m_level->laneCount()-1:enemy->line()-1), 100));
+                addedEnemies.emplace_back(createEnemy(FLIPPER, enemy->line()+1, 100));
+                addedEnemies.emplace_back(createEnemy(FLIPPER, enemy->line()+m_level->laneCount()-1, 100));
             }
             removed.emplace_back(enemy);
         }
@@ -151,6 +152,7 @@ void GameScene::checkMissiles()
 {
     std::vector<std::shared_ptr<Enemy>> removedEnemies, addedEnemies;
     std::vector<std::shared_ptr<Missile>> removedMissiles;
+    bool scoreChanged = false;
     for(const auto& missile : m_missiles)
     {
         if(missile->position() < 0.0f)
@@ -167,18 +169,21 @@ void GameScene::checkMissiles()
                 {
                     if (enemy->type()==SPIKER)
                     {
-                        addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1)%m_level->laneCount(), enemy->position()));
-                        addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()==0?m_level->laneCount()-1:enemy->line()-1), enemy->position()));
+                        addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+1) % m_level->laneCount(), enemy->position()));
+                        addedEnemies.emplace_back(createEnemy(FLIPPER, (enemy->line()+m_level->laneCount()-1) % m_level->laneCount(), enemy->position()));
                     }
                     removedEnemies.emplace_back(enemy);
                     removedMissiles.emplace_back(missile);
 
                     m_score += enemy->givenScore();
-                    m_scoreText->setText("Score: " + std::to_string(m_score));
+                    scoreChanged = true;
                 }
             }
         }
     }
+
+    if(scoreChanged)
+        m_scoreText->setText("Score: " + std::to_string(m_score));
 
     for(const auto& enemy : removedEnemies)
     {

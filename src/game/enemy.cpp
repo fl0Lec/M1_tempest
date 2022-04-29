@@ -31,9 +31,10 @@ EnemyShape Enemy::type() const
 
 bool Enemy::asReachEnd() const 
 {
-    return position() >= 100;
+    return position() >= MAX_POSITION;
 }
 
+// TODO Use polymorphism to give score
 unsigned int Enemy::givenScore() const
 {
     switch (m_type)
@@ -52,14 +53,14 @@ unsigned int Enemy::givenScore() const
 void Enemy::update([[maybe_unused]] const Input &in)
 {
     m_position += m_speed;
-    if (m_type==FLIPPER || m_type==SQUARE_MIDDLE)
+    if(m_type==FLIPPER || m_type==SQUARE_MIDDLE)
     {
-        if ((++m_changeLane>50) && (std::rand()%400-m_changeLane<0))
-            {
-                m_changeLane=0;
-                m_line= (m_line+(std::rand()%2?1:-1)) % m_level.laneCount();
-            }
-
+        if(++m_changeLane > 50 && std::rand()%400 - m_changeLane < 0)
+        {
+            m_changeLane=0;
+            uint randomMove = std::rand() % 2 ? 1 : m_level.laneCount()-1;
+            m_line = (m_line + randomMove) % m_level.laneCount();
+        }
     }
 }
 
@@ -110,7 +111,6 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
         for (auto &line : lines) {
             line.first*=0.8;
             line.second*=0.8;
-            
         }
         break;
     default:
@@ -121,9 +121,7 @@ std::vector<Line2f> EnemyBasePoint(EnemyShape type)
 
 void Enemy::render(const Output &out) const
 {
-    /**
-     * @brief put the enemy in the good position in U space
-     */
+    // put the enemy in the good position in U space
     std::pair<Line2f, Line2f> llines = m_level.laneLines(m_line);
     Line2f top = std::make_pair<Vect2f, Vect2f>(
         m_level.laneLines(m_line).first.second,
@@ -140,10 +138,8 @@ void Enemy::render(const Output &out) const
         line.second.putInU(U, top.first);
     }
 
-    /** 
-     * @brief now move by homothetie 
-    */
-    float h = (m_position/100)* (m_position/100);
+    // now move by homothetie 
+    float h = (m_position/MAX_POSITION) * (m_position/MAX_POSITION);
     for(Line2f& line : lines)
     {
         line.first = Vect2f::homothetie(h, line.first, middle);
@@ -157,6 +153,7 @@ void Enemy::render(const Output &out) const
     }
 }
 
+// TODO Use polymorphism to give color
 Color Enemy::enemyColor(EnemyShape s)
 {
     switch(s)
@@ -167,7 +164,7 @@ Color Enemy::enemyColor(EnemyShape s)
             return Color::RED;
         case SPIKER:
             return Color::GREEN;
-        default :
+        default:
             return Color::BLACK;
     }
 }

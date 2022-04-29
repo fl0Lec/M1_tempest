@@ -22,14 +22,12 @@ void Missile::render(const Engine::Output &out) const
     const Vect2f line1{lines.first.first, lines.first.second},
         line2{lines.second.first, lines.second.second};
 
-    // TODO Maybe use homothetie
     const float top    = (m_position + WIDTH) / MAX_POSITION;
     const float bottom = (m_position) / MAX_POSITION;
 
     const Vect2f base = Vect2f::center(lines.first.first, lines.second.first);
     
-    float h;
-    h = (m_position/100) * (m_position/100);
+    float h = (m_position/MAX_POSITION) * (m_position/MAX_POSITION);
     out.setColor(MISSILE_COLOR);
     out.drawLine({
         Vect2f::homothetie(h, (base  + Vect2f::center(line1 * top, line2 * top)), base),
