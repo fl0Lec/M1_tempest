@@ -93,7 +93,7 @@ void GameScene::update(const Engine::Input &in)
     {
         lose();
     }
-    else if(m_lost && (in.isKeyPressed(KEY_SPACE) || in.isKeyReleased(KEY_ENTER)))
+    else if(m_lost && (in.isKeyReleased(KEY_ENTER)))
     {
         Game::instance()->setCurrentScene(
             std::shared_ptr<Scene>{new ChooseLevelScene{0}}
@@ -208,6 +208,13 @@ void GameScene::lose()
         remove(m_player);
         m_objects.emplace_back(std::shared_ptr<TextComponent>{
             new TextComponent{Game::instance()->center(), "GAME OVER", Color::RED}
+        });
+        m_objects.emplace_back(std::shared_ptr<TextComponent>{
+            new TextComponent{Game::instance()->center()
+                + Vect2f{0, Game::instance()->height() / 8.0f},
+                "Press ENTER to restart",
+                Color::YELLOW
+            }
         });
     }
 }
