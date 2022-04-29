@@ -58,7 +58,7 @@ std::shared_ptr<Enemy> GameScene::createEnemy(EnemyShape type, int lane, double 
 {
     std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(
             lane % m_level->laneCount(), type, *m_level);
-    enemy->m_position = position;
+    enemy->setPosition(position);
 
     return enemy;
 }

@@ -29,6 +29,8 @@ public:
      */
     double position() const;
 
+    void setPosition(double position);
+
     static constexpr float MAX_POSITION = 100.0f;
     
 protected:
