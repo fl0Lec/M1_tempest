@@ -13,8 +13,6 @@
 #include "scene.hpp"
 #include "textcomponent.hpp"
 
-#define E_BEFORE_INCREASE_SPEED 20
-
 using namespace Engine;
 
 GameScene::GameScene(LevelType level)
@@ -100,20 +98,16 @@ void GameScene::update(const Engine::Input &in)
         );
     }
 
-    // TODO Real spawn system
-    static int count = 0, count_before_increase = E_BEFORE_INCREASE_SPEED, speed_gen = 50;
-    count += 1;
-    if((count > speed_gen) && (std::rand()%300-count>0))
+    m_spawnCounter += 1;
+    if((m_spawnCounter > m_speedGen) && (std::rand() % 300 - m_spawnCounter > 0))
     {
-        count = 0;
-        if (count_before_increase)
-            count_before_increase--;
+        m_spawnCounter = 0;
+        if (m_countBeforeIncrease)
+            m_countBeforeIncrease--;
         else 
         {
-            count_before_increase=E_BEFORE_INCREASE_SPEED;
-            speed_gen--;
-
-
+            m_countBeforeIncrease = COUNT_BEFORE_INCREASE_SPEED;
+            m_speedGen--;
         }
         int type = std::rand() % (EnemyShape::SPIKER+1);
 

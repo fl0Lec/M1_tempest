@@ -59,6 +59,12 @@ private:
     unsigned int m_score;
     std::shared_ptr<Engine::TextComponent> m_scoreText;
 
+    /** Spawn system */
+    size_t m_spawnCounter = 0;
+    const size_t COUNT_BEFORE_INCREASE_SPEED = 20;
+    size_t m_countBeforeIncrease = COUNT_BEFORE_INCREASE_SPEED;
+    size_t m_speedGen = 50;
+
     bool m_lost = false;
 };
 
