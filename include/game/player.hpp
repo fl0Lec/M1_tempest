@@ -28,7 +28,7 @@ private:
     static const int MOVE_COOLDOWN = 5;
 
     /** How many updates before a player can shoot again */
-    static const int SHOOT_COOLDOWN = 15;
+    static const int SHOOT_COOLDOWN = 8;
 
 };
 
